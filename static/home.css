@@ -1,0 +1,330 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  padding: 10px;
+  background: #20B2AA;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+  /* background-image: url("/static/img/banner-bg.jpg"*/ ;
+}
+
+.header img {
+  padding: 5px;
+  width: 100%;
+  border-radius: 100%;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #B22222;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  border-radius: 10px;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #FFFAF0;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: right;
+  width: 70%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: right;
+  width: 30%;
+  background-color: #20B2AA;
+  padding-right: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #B22222;
+  color: #FFFAF0;
+  width: 100%;
+  padding: 20px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.fakeimg a{
+  background-color: #B22222;
+  color: #FFFAF0;
+  text-decoration: none;
+}
+
+.fakeimg :hover{
+  text-decoration: underline;
+  color: black;
+}
+
+.todef {
+  background-color: grey;
+  color: #FFFAF0;
+  width: 100%;
+  padding: 20px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+/* Chi Siamo Image */
+.chisiamoImg{
+  border: 1px solid #8B4513;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100%;
+}
+
+/* Cheff Image */
+.cheffImg {
+  display: flex;
+}
+
+.cheffImg img{
+  display: inline;
+  border: 1px solid #8B4513;
+  border-radius: 4px;
+  padding: 5px;
+  width: auto;
+  height: auto;
+}
+
+/* Orders Card Home */
+.orderHome{
+  padding: 5px;
+  width: 100%;
+}
+
+/* Add a card effect for articles */
+.card {
+  background: #FFFFE0;
+  color: #696969;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sm-card {
+  background-color: #FFFFE0;
+  color: #696969;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.sm-icons a {
+  width: 100%;
+  padding: 20px;
+  float: center;
+  display: inline;
+  color: #FFFAF0;
+  font-size: 20px;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.sm-icons a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.sm-icons {
+  background-color: #B22222;
+  color: #FFFAF0;
+  width: 100%;
+  padding: 20px;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+/* Google Maps */
+.gmap_canvas{
+    float: center;
+}
+
+/* Contact Details */
+.contacts{
+    padding: 10px;
+}
+
+#contactSign{ /* button */
+    background-color: grey;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 100px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Rest Images */
+.rowImg {
+  display: -ms-flexbox; /* IE 10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE 10 */
+  flex-wrap: wrap;
+  padding: 4px;
+  background: #FFFFE0;
+  border-radius: 10px;
+}
+
+.restImages {
+  -ms-flex: 50%; /* IE 10 */
+  flex: 50%;
+  padding: 4px;
+}
+
+.restImages img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Review Form - Collapsible */
+
+#reviewForm {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.active, #reviewForm:hover {
+  background-color: #555;
+}
+
+.formCont {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+/* 5 stars rating */
+/* taken from https://www.youtube.com/watch?v=SD7zspiPlQ4&t=186s */
+
+.rating {
+  margin: 0 auto;
+  margin-right: auto;
+  display: flex;
+  padding: auto;
+
+  background: #FFFFE0;
+}
+
+.rating li {
+  list-style-type: none;
+  background: #FFFFE0;
+}
+
+.rating-item {
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-size: 30px;
+  color: #B22222;
+}
+
+.rating-item::before {
+  content: "\2605";
+}
+
+.rating-item.active ~ .rating-item::before {
+  content: "\2606";
+}
+
+.rating:hover .rating-item::before {
+  content: "\2605";
+}
+
+.rating-item:hover ~ .rating-item::before {
+  content: "\2606";
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #B22222;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.footer a {
+  float: center;
+  display: inline;
+  color: #FFFAF0;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1150px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+  .cheffImg {
+  display: inline;
+   }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 414px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+
+  .cheffImg {
+  display: inline;
+    }
+}
