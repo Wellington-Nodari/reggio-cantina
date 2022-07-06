@@ -1,4 +1,3 @@
-/* taken from https://www.youtube.com/watch?v=SD7zspiPlQ4&t=186s */
 const container = document.querySelector('.rating');
 const items = container.querySelectorAll('.rating-item ')
 
