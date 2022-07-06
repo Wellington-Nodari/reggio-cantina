@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, g
-from calendary import Calendary
 
 app = Flask(__name__)
 
@@ -17,9 +16,7 @@ def menu():
 
 @app.route('/reservation')
 def reservation():
-    cal = Calendary(2022)
-    month = cal.month(6)
-    return render_template("/reservation.html", cal=month)
+    return render_template("/reservation.html")
 
 @app.route('/findus')
 def findus():
