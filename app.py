@@ -1,9 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, g
 from calendary import Calendary
-from datetime import datetime
 
 app = Flask(__name__)
-#comment
 
 @app.route('/')
 def home():
