@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Reggio Cantina</title>
+        <link rel="shortcut icon" href="/static/img/logo.jpg.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/home.css">
+    <style>
+
+    </style>
+    </head>
+        <body>
+
+        <div class="header" style="background-image: url(/static/img/banner-bg1.jpg); border-radius: 10px;">
+          <a href="/"><img src="/static/img/logo.jpg.png" alt="Restaurants Bar" style="width:15%;height:15%; padding: 5px"></a>
+        </div><br>
+
+        <div class="topnav">
+          <a href="restaurant">Restaurant</a>
+          <a href="menu">Menus</a>
+          <a href="reservation">Reservations</a>
+          <a href="findus">Find Us</a>
+          <a href="signup" style="float:right">Sign Up</a>
+        </div>
+
+        <div class="form">
+            <div style = "display:block" id="signDv">
+                <form action="/signup" method="post" id="signupForm">
+                  <br/>
+                  <input placeholder="Email" type="text" name="email"><br/>
+                  <br/>
+                  <input placeholder="Password" name="password" type="password" id="pwd"><br/><br/>
+                  <input type="submit" value="Confirm" id="erlbtn">
+                </form>
+            </div><br>
+        </div>
+
+        <div class="footer">
+              <a href="#">The Team</a> |
+              <a href="#">Careers</a> |
+              <a href="#">Contact Us</a>
+        </div>
+    <script>
+        function password() {
+            let x = document.getElementById("pwd");
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
+            }
+
+    </script>
+    </body>
+</html>
