@@ -25,7 +25,7 @@
 
         <div class="form">
             <div style = "display:block" id="signDv">
-                <form action="/signup" method="post" id="signupForm">
+                <form action="{{url_for('signup')}}" method="POST" id="signupForm">
                   <br/>
                   <input placeholder="First name" type="text" name="fname"><br/>
                   <br/>
@@ -37,7 +37,7 @@
                   <br/>
                   <input placeholder="Address" type="text" name="address"><br/>
                   <br/>
-                  <input placeholder="Password" name="password" type="password" id="pwd"><br/><br/>
+                  <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
                   <input placeholder="Confirm Password" name="pwdC" type="password" id="pwdC"><br/><br/>
                   <input type="submit" value="Confirm" id="erlbtn">
                 </form>

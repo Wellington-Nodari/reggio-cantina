@@ -24,13 +24,13 @@
         </div>
 
         <div class="form">
-            <div style = "display:block" id="signDv">
-                <form action="/signup" method="post" id="signupForm">
+            <div style = "display:block" id="logDv">
+                <form action="{{url_for('login')}}" method="POST" id="loginForm">
                   <br/>
                   <input placeholder="Email" type="text" name="email"><br/>
                   <br/>
-                  <input placeholder="Password" name="password" type="password" id="pwd"><br/><br/>
-                  <input type="submit" value="Confirm" id="erlbtn">
+                  <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
+                  <input type="submit" value="Confirm" id="logbtn">
                 </form>
             </div><br>
         </div>
