@@ -54,20 +54,23 @@ def login():
                 session['email'] = email
                 if session['logged_in'] is True:
                     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-                    cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+                    cur.execute("SELECT role_id FROM login WHERE email='{}'".format(email))
                     print('here')
                     role = cur.fetchall()
                     print(role[0][0])
 
-                    if role[0][0] == 1:
+                    if role[0][0] == 2:
                         cur.close()
                         return redirect(url_for('admin'))
-                    elif role[0][0] == 2:
+                    elif role[0][0] == 3 and role[0][0] == 2:
                         cur.close()
                         return redirect(url_for('floor'))
-                    elif role[0][0] == 3:
+                    elif role[0][0] == 4 and role[0][0] == 3 and role[0][0] == 2:
                         cur.close()
                         return redirect(url_for('kitchen'))
+                    if role[0][0] == 1:
+                        cur.close()
+                        return redirect(url_for('menu'))
         except:
             error = 'Invalid credentials. Please try again'
             return render_template('/home.html', error=error)
@@ -89,10 +92,11 @@ def signup():
         phone = request.form['phone']
         address = request.form['address']
         pwd = request.form['pwd']
+        role_id = 1
 
-        cur.execute("INSERT INTO customer(fname, lname, email, phone, address) VALUES(%s,%s,%s,%s,%s)",(fname, lname, email, phone, address))
+        cur.execute("INSERT INTO customer(fname, lname, email, phone, address, role_id) VALUES(%s,%s,%s,%s,%s,%s)",(fname, lname, email, phone, address, role_id))
 
-        cur.execute("INSERT INTO login(email, pwd) VALUES(%s,%s)",(email, pwd))
+        cur.execute("INSERT INTO login(email, pwd, role_id) VALUES(%s,%s,%s)",(email, pwd, role_id))
         conn.commit()
         cur.close()
         flash('SignUp Successful')
@@ -110,13 +114,15 @@ def admin():
     else:
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
-        print('here')
         role = cur.fetchall()
-        print(role[0][0])
+
+        cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
+        name = cur.fetchall()
+        fname = name[0][0]
 
         if role[0][0] == 1:
             cur.close()
-            return render_template("/adm_page.html")
+            return render_template("/adm_page.html", fname=fname)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
@@ -143,3 +149,4 @@ def kitchen():
 
 if __name__ == '__main__':
     app.run(debug=True)
+# </string:id></id ></id>
