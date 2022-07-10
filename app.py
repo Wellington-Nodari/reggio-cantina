@@ -29,7 +29,20 @@ def restaurant():
 
 @app.route('/menu')
 def menu():
-    return render_template("/menu.html")
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    m = '''SELECT * FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
+    cur.execute(m)
+    meal_list = cur.fetchall()
+
+    d = '''SELECT * FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
+    cur.execute(d)
+    dessert_list = cur.fetchall()
+
+    w = '''SELECT * FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
+    cur.execute(w)
+    drink_list = cur.fetchall()
+
+    return render_template("/menu.html", meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list)
 
 @app.route('/reservation')
 def reservation():
@@ -149,4 +162,3 @@ def kitchen():
 
 if __name__ == '__main__':
     app.run(debug=True)
-# </string:id></id ></id>

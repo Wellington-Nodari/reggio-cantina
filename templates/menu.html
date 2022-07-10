@@ -27,10 +27,77 @@
             <div class="row">
                 <div class="leftcolumn">
                     <div class="card">
-                        <h2>TITLE HEADING</h2>
-                        <h5>Title description, Sep 2, 2017</h5>
-                        <div class="fakeimg" style="height:200px;">Image</div>
-                        <p>Some text..</p>
+                        <h2>Our Options</h2>
+                        <h5>Our menu is carefully selected daily with fresh ingredients</h5>
+                        <div class="fakeimg" style="height:auto;">
+
+                            <div class="menu">
+                              <table id="menu" class="menu_items" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <td>Mains</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for row in meal_list %}
+                                  <tr>
+                                    <td>{{row[0]}}</td>
+                                    <td>{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                    <td width="130">
+<!--                                      <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
+<!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+
+                                  <thead>
+                                  <tr>
+                                    <td>Desserts</td>
+                                  </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for row in dessert_list %}
+                                      <tr>
+                                        <td>{{row[0]}}</td>
+                                        <td>{{row[1]}}</td>
+                                        <td>{{row[2]}}</td>
+                                        <td>{{row[3]}}</td>
+                                        <td width="130">
+<!--                                          <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
+    <!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
+                                        </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+
+                                  <thead>
+                                  <tr>
+                                    <td>Drinks</td>
+                                  </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for row in drink_list %}
+                                      <tr>
+                                        <td>{{row[0]}}</td>
+                                        <td>{{row[1]}}</td>
+                                        <td>{{row[2]}}</td>
+                                        <td>{{row[3]}}</td>
+                                        <td width="130">
+<!--                                          <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
+    <!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
+                                        </td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+
+                              </table>
+                            </div>
+
+                        </div>
+                        <p>Please ask for the allergens list</p>
                         <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
                     </div>
                 </div>
