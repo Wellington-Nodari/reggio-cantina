@@ -11,7 +11,7 @@
     </head>
         <body>
 
-        <div class="header" style="background-image: url(/static/img/banner-bg1.jpg); border-radius: 10px;">
+        <div class="header">
           <a href="/"><img src="/static/img/logo.jpg.png" alt="Restaurants Bar" style="width:15%;height:15%; padding: 5px"></a>
         </div><br>
 
@@ -29,7 +29,7 @@
                     <div class="card">
                         <h2>Our Options</h2>
                         <h5>Our menu is carefully selected daily with fresh ingredients</h5>
-                        <div class="fakeimg" style="height:auto;">
+                        <div class="fakeimg">
 
                             <div class="menu">
                               <table id="menu" class="menu_items" style="width:100%">
@@ -45,9 +45,9 @@
                                     <td>{{row[1]}}</td>
                                     <td>{{row[2]}}</td>
                                     <td>{{row[3]}}</td>
-                                    <td width="130">
-<!--                                      <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
-<!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
+                                    <td width="100">
+<!--                                      <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">Edit</a>-->
+<!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">Delete</a>-->
                                     </td>
                                   </tr>
                                   {% endfor %}
@@ -98,19 +98,20 @@
 
                         </div>
                         <p>Please ask for the allergens list</p>
-                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+<!--                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>-->
                     </div>
                 </div>
                 <div class="rightcolumn">
                     <div class="card">
-                        <h2>Chi siamo</h2>
-                        <div class="fakeimg" style="height:100px;">Image</div>
-                        <p>One of the finest Michelin-starred restaurants in Dublin, noted as much for its conviviality as the quality of its food.</p>
+                        <div class="menuImg">
+                            <img src="/static/img/rest_food1.jpg" alt="Our starred cheff" style="width:auto;height:auto;max-height:250px;padding:5px">
+                            <img src="/static/img/rest_food3.jpg" alt="Our starred cheff" style="width:auto;height:auto;max-height:250px;padding:5px">
+                            <img src="/static/img/panna-cotta-01.jpg" alt="Our starred cheff" style="width:auto;height:auto;max-height:250px;padding:5px">
+                        </div>
+                    <a href="order" class="button" id="orderBtn">Place an Order</a>
                     </div>
                 </div>
             </div>
-        </div>
-
         </div>
 
         <div class="footer">

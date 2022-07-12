@@ -27,22 +27,65 @@ def home():
 def restaurant():
     return render_template("/restaurant.html")
 
-@app.route('/menu')
+@app.route('/menu', methods=['GET', 'POST'])
 def menu():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    m = '''SELECT * FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
+    m = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
     cur.execute(m)
     meal_list = cur.fetchall()
-
-    d = '''SELECT * FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
+    d = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
     cur.execute(d)
     dessert_list = cur.fetchall()
-
-    w = '''SELECT * FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
+    w = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
     cur.execute(w)
     drink_list = cur.fetchall()
 
-    return render_template("/menu.html", meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list)
+    return render_template("/menu.html", meal_list=meal_list, dessert_list=dessert_list, drink_list=drink_list)
+
+@app.route('/adm_menu', methods=['GET', 'POST'])
+@login_required
+def adm_menu():
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    m = '''SELECT item_menu_id, item_name, item_desc, item_price FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
+    cur.execute(m)
+    meal_list = cur.fetchall()
+    d = '''SELECT item_menu_id, item_name, item_desc, item_price FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
+    cur.execute(d)
+    dessert_list = cur.fetchall()
+    w = '''SELECT item_menu_id, item_name, item_desc, item_price FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
+    cur.execute(w)
+    drink_list = cur.fetchall()
+
+    if session['logged_in'] is True:
+        if request.method == 'POST':
+            item_menu_id = request.form['item_menu_id']
+            item_name = request.form['item_name']
+            item_desc = request.form['item_desc']
+            item_price = request.form['item_price']
+
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cur.execute('''
+                    UPDATE menu
+                    SET item_name = %s,
+                        item_desc = %s,
+                        item_price = %s
+                    WHERE item_menu_id = %s;
+                ''', (item_name, item_desc, item_price, item_menu_id))
+            flash('Menu Updated Successfully')
+            conn.commit()
+
+
+            n_item_name = request.form['n_item_name']
+            n_item_desc = request.form['n_item_desc']
+            n_item_category = request.form['n_item_category']
+            n_item_price = request.form['n_item_price']
+
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cur.execute("INSERT INTO menu(item_name, item_desc, item_category, item_price) VALUES(%s,%s,%s,%s);",(n_item_name, n_item_desc, n_item_category, n_item_price))
+            flash('Menu Updated Successfully')
+            conn.commit()
+
+    return render_template("/adm_menu.html", meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list)
 
 @app.route('/reservation')
 def reservation():
@@ -68,9 +111,7 @@ def login():
                 if session['logged_in'] is True:
                     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
                     cur.execute("SELECT role_id FROM login WHERE email='{}'".format(email))
-                    print('here')
                     role = cur.fetchall()
-                    print(role[0][0])
 
                     if role[0][0] == 2:
                         cur.close()
@@ -139,6 +180,12 @@ def admin():
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
+
+@app.route('/staff')
+@login_required
+def staff():
+    email = str(session['email'])
+    return render_template("/staff.html")
 
 @app.route('/floor')
 @login_required

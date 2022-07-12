@@ -13,7 +13,8 @@ body {
   padding: 30px;
   text-align: center;
   background: white;
-  /* background-image: url("/static/img/banner-bg.jpg"*/ ;
+  background-image: url("/static/img/banner-bg1.jpg");
+  border-radius: 10px;
 }
 
 .header img {
@@ -68,6 +69,7 @@ body {
   background-color: #B22222;
   color: #FFFAF0;
   width: 100%;
+  height: auto;
   padding: 20px;
   text-decoration: none;
   border-radius: 10px;
@@ -79,10 +81,10 @@ body {
   text-decoration: none;
 }
 
-.fakeimg :hover{
+/* .fakeimg :hover{
   text-decoration: underline;
   color: black;
-}
+} */
 
 .todef {
   background-color: grey;
@@ -247,18 +249,31 @@ body {
 /* 5 stars rating */
 /* taken from https://www.youtube.com/watch?v=SD7zspiPlQ4&t=186s */
 
+#formDv {
+    position: flex;
+    margin-left: auto;
+    margin-right: auto;
+    background: #FFFFE0;
+    display:none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
 .rating {
+  height:auto;
   margin: 0 auto;
   margin-right: auto;
+  margin-left: auto;
   display: flex;
-  padding: auto;
-
   background: #FFFFE0;
 }
 
 .rating li {
   list-style-type: none;
   background: #FFFFE0;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 5px;
 }
 
 .rating-item {
@@ -325,6 +340,51 @@ body {
   }
 
   .cheffImg {
-  display: inline;
+    display: inline;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
     }
+}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-btn {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  margin-left:auto;
+  margin-right:auto;
+  width: 280px;
+  border-radius: 10px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: relative;
+  z-index: 9;
+}
+
+.menuImg {
+    height:auto;
+    padding: 10px;
+    flex-wrap: wrap;
+    border-radius: 10px;
+}
+
+.menuImg img {
+    margin-left:auto;
+    margin-right:auto;
+    padding: 5px;
+    background: #B22222;
+    width:auto;
+    height:auto;
+    max-width: 75%;
+    max-height:250px;
+    border-color:black;
+    border-width: medium;
+    border-radius: 10px;
 }

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Reggio Cantina</title>
+        <link rel="shortcut icon" href="/static/img/logo.jpg.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../static/home.css">
+    <style>
+
+    </style>
+    </head>
+    <body>
+        <div class="header">
+          <a href="admin">
+              <img src="/static/img/logo.jpg.png" alt="Restaurants Logo" style="width:15%;height:15%;padding:5px">
+          </a>
+        </div><br>
+
+        <div class="topnav">
+          <a href="restaurant">Restaurant</a>
+          <a href="#">Menus</a>
+          <a href="reservation">Reservations</a>
+          <a href="findus">Find Us</a>
+          <a href="login" style="float:right">Log In</a>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h2>Our Options</h2>
+                        <h5>Our menu is carefully selected daily with fresh ingredients</h5>
+                        <div class="fakeimg">
+
+                            <div class="menu">
+                              <table id="menu" class="menu_items" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <td>Item Id</td>
+                                    <td>Item Name</td>
+                                    <td>Item Details</td>
+                                    <td>Item Price</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for row in meal_list %}
+                                  <tr>
+                                    <td>{{row[0]}}</td>
+                                    <td>{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                    <td width="130"></td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+
+                                  <thead>
+                                  <tr>
+                                    <td>Desserts</td>
+                                  </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for row in dessert_list %}
+                                      <tr>
+                                        <td>{{row[0]}}</td>
+                                        <td>{{row[1]}}</td>
+                                        <td>{{row[2]}}</td>
+                                        <td>{{row[3]}}</td>
+                                        <td width="130"></td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+
+                                  <thead>
+                                  <tr>
+                                    <td>Drinks</td>
+                                  </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for row in drink_list %}
+                                      <tr>
+                                        <td>{{row[0]}}</td>
+                                        <td>{{row[1]}}</td>
+                                        <td>{{row[2]}}</td>
+                                        <td>{{row[3]}}</td>
+                                        <td width="130"></td>
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                              </table>
+                            </div>
+                        </div>
+                        <p>Please ask for the allergens list</p>
+                    </div>
+                </div>
+                <div class="rightcolumn">
+                    <div class="card">
+                        <h2>Manage the Menu</h2>
+                        <div class="fakeimg" style="height:auto;">
+                            <button class="open-btn" id="editFormBtn" onclick="openEditForm()">Edit Menu</button>
+                                <div class="form-popup" id="edit-form">
+                                    <form method="POST" id="edit-menuForm">
+                                      <button type="button" onclick="closeEditForm()">close</button>
+                                      <p>Edit the Menu</p>
+                                      <input placeholder="Menu Item ID" type="text" name="item_menu_id"><br/>
+                                      <br/>
+                                      <input placeholder="Item Name" name="item_name" type="text"><br/><br/>
+                                      <input placeholder="Item Details" name="item_desc" type="text"><br/><br/>
+                                      <input placeholder="Item Price" name="item_price" type="number" required  min="0" value="0" step="any"><br/><br/>
+                                      <button type="submit" value="Confirm" id="edit-menubtn" onclick="refreshPage()">Confirm</button>
+                                    </form>
+                                </div><br><br>
+
+                            <button class="open-btn" id="addFormBtn" onclick="openAddForm()">Add to Menu</button>
+                            <div class="form-popup" id="add-form">
+                                <div id="add-menuDv">
+                                    <form method="POST" id="add-menuForm">
+                                      <button type="button" onclick="closeAddForm()">close</button>
+                                      <p>Adding to Menu</p>
+                                      <input placeholder="Item Name" name="n_item_name" type="text"><br/><br/>
+                                      <input placeholder="Item Details" name="n_item_desc" type="text"><br/><br/>
+                                      <input placeholder="Item Category" list="categories" name="n_item_category">
+                                        <datalist id="categories">
+                                            <option value="meal">
+                                            <option value="drink">
+                                            <option value="dessert">
+                                        </datalist><br/><br/>
+                                      <input placeholder="Item Price" name="n_item_price" type="number" required  min="0" value="0" step="any"><br/><br/>
+                                        <button type="submit" value="Confirm" id="add-menubtn" onclick="refreshPage()">Submit</button>
+                                    </form>
+                                </div><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+              <a href="#">The Team</a> |
+              <a href="#">Careers</a> |
+              <a href="#">Contact Us</a>
+        </div>
+        <script type="text/javascript" src="/static/js/menuForms.js"></script>
+
+    </body>
+</html>

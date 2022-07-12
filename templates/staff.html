@@ -11,7 +11,7 @@
     </head>
         <body>
 
-        <div class="header" style="background-image: url(/static/img/banner-bg1.jpg); border-radius: 10px;">
+        <div class="header">
           <a href="/"><img src="/static/img/logo.jpg.png" alt="Restaurants Bar" style="width:15%;height:15%; padding: 5px"></a>
         </div><br>
 
@@ -20,19 +20,12 @@
           <a href="menu">Menus</a>
           <a href="reservation">Reservations</a>
           <a href="findus">Find Us</a>
-          <a href="signup" style="float:right">Sign Up</a>
-        </div>
+          <a href="admin" style="float:right">Back</a>
+        </div><br>
 
-        <div class="form">
-            <div style = "display:block" id="logDv">
-                <form action="{{url_for('login')}}" target="_window" method="POST" id="loginForm">
-                  <br/>
-                  <input placeholder="Email" type="text" name="email"><br/>
-                  <br/>
-                  <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
-                  <input type="submit" value="Confirm" id="logbtn">
-                </form>
-            </div><br>
+        <div class="content">
+            This will be Reservations content
+            {{cal}}
         </div>
 
         <div class="footer">
@@ -41,14 +34,7 @@
               <a href="#">Contact Us</a>
         </div>
     <script>
-        function password() {
-            let x = document.getElementById("pwd");
-            if (x.type === "password") {
-              x.type = "text";
-            } else {
-              x.type = "password";
-            }
-            }
+
 
     </script>
     </body>
