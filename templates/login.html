@@ -24,13 +24,14 @@
         </div>
 
         <div class="form">
-            <div style = "display:block" id="logDv">
+            <div id="logDv">
                 <form action="{{url_for('login')}}" target="_window" method="POST" id="loginForm">
                   <br/>
                   <input placeholder="Email" type="text" name="email"><br/>
                   <br/>
                   <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
-                  <input type="submit" value="Confirm" id="logbtn">
+<!--                  <input type="submit" value="Confirm" id="logbtn" style="text-align: center;">-->
+                  <button type="submit" value="Confirm" id="logbtn" onclick="refreshPage()">Submit</button>
                 </form>
             </div><br>
         </div>

@@ -388,3 +388,25 @@ body {
     border-width: medium;
     border-radius: 10px;
 }
+
+/* Login and Signup Forms */
+
+
+.form {
+    display: block;
+    text-align: center;
+}
+
+#loginForm #signupForm {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+#loginbtn #signupbtn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
