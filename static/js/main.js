@@ -16,10 +16,10 @@ let revF = document.getElementById('reviewForm');
 let formC = document.getElementById('formDv');
 
     revF.addEventListener('click', () => {
-    if (formC.style.display === 'none') {
-      formC.style.display = 'block';
-    } else {
+    if (formC.style.display === 'block') {
       formC.style.display = 'none';
+    } else {
+      formC.style.display = 'block';
     }
     });
 

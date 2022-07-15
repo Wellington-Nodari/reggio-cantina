@@ -18,11 +18,14 @@ body {
 }
 
 .header img {
+  background-color: white;
   padding: 5px;
   width:20%;
   height:20%;
   border-radius: 100%;
   position: relative;
+  border: 2px solid #8B4513;
+  padding: 5px;
 }
 
 /* Style the top navigation bar */
@@ -83,20 +86,6 @@ body {
   text-decoration: none;
 }
 
-/* .fakeimg :hover{
-  text-decoration: underline;
-  color: black;
-} */
-
-.todef {
-  background-color: grey;
-  color: #FFFAF0;
-  width: 100%;
-  padding: 20px;
-  text-decoration: none;
-  border-radius: 10px;
-}
-
 /* Chi Siamo Image */
 .chisiamoImg{
   border: 1px solid #8B4513;
@@ -115,8 +104,15 @@ body {
   border: 1px solid #8B4513;
   border-radius: 4px;
   padding: 5px;
-  width: auto;
-  height: auto;
+  width-max: auto;
+  width:50%;
+  height-max:auto;
+}
+
+.specialImg img{
+  width:100%;
+  height:auto;
+  padding: 5px;
 }
 
 /* Orders Card Home */
@@ -213,6 +209,9 @@ body {
 .restImages img {
   margin-top: 8px;
   vertical-align: middle;
+  border: 1px solid #8B4513;
+  border-radius: 4px;
+  padding: 5px;
 }
 
 /* Clear floats after the columns */
@@ -252,34 +251,26 @@ body {
 /* taken from https://www.youtube.com/watch?v=SD7zspiPlQ4&t=186s */
 
 #formDv {
-    position: flex;
-    margin-left: auto;
-    margin-right: auto;
-    background: #FFFFE0;
-    display:none;
-    border-radius: 10px;
-    padding: 5px;
+  padding: 15px;
+  border-radius: 10px;
+  display: none;
 }
 
 .rating {
-  height:auto;
-  margin: 0 auto;
-  margin-right: auto;
-  margin-left: auto;
+  float: center;
   display: flex;
-  background: #FFFFE0;
+  text-align: center;
 }
 
 .rating li {
   list-style-type: none;
   background: #FFFFE0;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 5px;
+  text-align: center;
 }
 
 .rating-item {
-  border: 1px solid #fff;
+  text-align: center;
+  border: none;
   cursor: pointer;
   font-size: 30px;
   color: #B22222;
@@ -381,14 +372,12 @@ body {
     margin-left:auto;
     margin-right:auto;
     padding: 5px;
-    background: #B22222;
     width:auto;
     height:auto;
     max-width: 75%;
     max-height:250px;
-    border-color:black;
-    border-width: medium;
-    border-radius: 10px;
+    border: 1px solid #8B4513;
+    border-radius: 4px;
 }
 
 /* Login and Signup Forms */
