@@ -113,6 +113,8 @@ body {
   width:100%;
   height:auto;
   padding: 5px;
+  border: 1px solid #8B4513;
+  border-radius: 4px;
 }
 
 /* Orders Card Home */
@@ -169,11 +171,30 @@ body {
 /* Google Maps */
 .gmap_canvas{
     float: center;
+    overflow:hidden;
+    background:none!important;
+    height:auto;
+    width:auto;
+}
+
+.gmap_canvas #gmap_canvas {
+    border: 1px solid #8B4513;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+#gmap-card {
+    position:relative;
+    text-align:center;
+    height:auto;
+    width:auto;
 }
 
 /* Contact Details */
 .contacts{
     padding: 10px;
+    border: 1px solid #8B4513;
+    border-radius: 4px;
 }
 
 #contactSign{ /* button */
