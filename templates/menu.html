@@ -33,73 +33,50 @@
                         <div class="fakeimg">
 
                             <div class="menu">
-                              <table id="menu" class="menu_items" style="width:100%">
-                                <thead>
-                                  <tr>
-                                    <td>Mains</td>
-                                  </tr>
-                                </thead>
+                              <table id="menuMain" class="menu_items">
+                                <h3 id="tabHead">Mains</h3>
                                 <tbody>
                                   {% for row in meal_list %}
                                   <tr>
-                                    <td>{{row[0]}}</td>
-                                    <td>{{row[1]}}</td>
+                                    <td style="width: 15%">{{row[0]}}</td>
+                                    <td style="width: 50%">{{row[1]}}</td>
                                     <td>{{row[2]}}</td>
                                     <td>{{row[3]}}</td>
-                                    <td width="100">
-<!--                                      <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">Edit</a>-->
-<!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">Delete</a>-->
-                                    </td>
                                   </tr>
                                   {% endfor %}
                                 </tbody>
+                              </table>
 
-                                  <thead>
+                              <table id="menuDess" class="menu_items">
+                                <h3 id="tabHead">Desserts</h3>
+                                <tbody>
+                                   {% for row in dessert_list %}
+                                   <tr>
+                                     <td style="width: 15%">{{row[0]}}</td>
+                                     <td style="width: 50%">{{row[1]}}</td>
+                                     <td>{{row[2]}}</td>
+                                     <td>{{row[3]}}</td>
+                                   </tr>
+                                   {% endfor %}
+                                </tbody>
+                              </table>
+
+                              <table id="menuDrink" class="menu_items">
+                                <h3 id="tabHead">Drinks</h3>
+                                <tbody>
+                                  {% for row in drink_list %}
                                   <tr>
-                                    <td>Desserts</td>
-                                  </tr>
-                                    </thead>
-                                    <tbody>
-                                      {% for row in dessert_list %}
-                                      <tr>
-                                        <td>{{row[0]}}</td>
-                                        <td>{{row[1]}}</td>
-                                        <td>{{row[2]}}</td>
-                                        <td>{{row[3]}}</td>
-                                        <td width="130">
-<!--                                          <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
-    <!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
-                                        </td>
-                                      </tr>
-                                      {% endfor %}
-                                    </tbody>
-
-                                  <thead>
-                                  <tr>
-                                    <td>Drinks</td>
-                                  </tr>
-                                    </thead>
-                                    <tbody>
-                                      {% for row in drink_list %}
-                                      <tr>
-                                        <td>{{row[0]}}</td>
-                                        <td>{{row[1]}}</td>
-                                        <td>{{row[2]}}</td>
-                                        <td>{{row[3]}}</td>
-                                        <td width="130">
-<!--                                          <a href="/edit/{{row[0]}}" class="btn btn-secondary btn-sm">select</a>-->
-    <!--                                      <a href="/delete/{{row[0]}}" class="btn btn-danger btn-delete btn-sm">delete</a>-->
-                                        </td>
-                                      </tr>
-                                      {% endfor %}
-                                    </tbody>
-
+                                    <td style="width: 15%">{{row[0]}}</td>
+                                    <td style="width: 50%">{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                  {% endfor %}
+                                </tbody>
                               </table>
                             </div>
 
                         </div>
                         <p>Please ask for the allergens list</p>
-<!--                        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>-->
                     </div>
                 </div>
                 <div class="rightcolumn">

@@ -127,6 +127,8 @@ body {
 .card {
   background: #FFFFE0;
   color: #696969;
+  padding: 10px;
+  border: 1px solid #8B4513;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
@@ -140,6 +142,8 @@ body {
   margin-top: 20px;
   text-align: center;
   border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #8B4513;
 }
 
 .sm-icons a {
@@ -219,6 +223,8 @@ body {
   padding: 4px;
   background: #FFFFE0;
   border-radius: 10px;
+  padding: 5px;
+  border: 1px solid #8B4513;
 }
 
 .restImages {
@@ -275,6 +281,8 @@ body {
   padding: 15px;
   border-radius: 10px;
   display: none;
+  padding: 10px;
+  border: 1px solid #8B4513;
 }
 
 .rating {
@@ -380,6 +388,22 @@ body {
   display: none;
   position: relative;
   z-index: 9;
+}
+
+/* menu */
+
+td {
+   text-align: left;
+   width: auto;
+   align
+}
+
+.menu_items {
+   width: 100%;
+}
+
+.menu_items #tabHead{
+    font-size: 20px;
 }
 
 .menuImg {
