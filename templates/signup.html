@@ -24,6 +24,12 @@
           <a href="login" style="float:right">Login</a>
         </div>
 
+        <div id="errorMsg">
+          {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}</p>
+          {% endif %}
+        </div>
+
         <div class="form">
             <div style = "display:block" id="signDv">
                 <form action="{{url_for('signup')}}" method="POST" id="signupForm">

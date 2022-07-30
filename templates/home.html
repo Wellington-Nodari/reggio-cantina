@@ -85,18 +85,20 @@
               <button onclick="reviewForm" id="reviewForm">Review</button><br>
 
               <div id="formDv">
-                  <form action="#" method="post" id="formCont"><br/>
+                  <form action="#" method="post" id="formRev"><br/>
                       <input placeholder="Name" type="text" name="name" id="name" required><br/>
                       <br/>
                       <input placeholder="Email" type="email" name="email" id="email" required><br/>
                       <br/>
-                      <span><ul class="rating">
-                          <li class="rating-item active" data-rate="1"></li>
-                          <li class="rating-item" data-rate="2"></li>
-                          <li class="rating-item" data-rate="3"></li>
-                          <li class="rating-item" data-rate="4"></li>
-                          <li class="rating-item" data-rate="5"></li>
-                      </ul></span>
+                      <span name="rating">
+                          <ul class="rating" id="rating">
+                              <li class="rating-item active" data-rate="1" value="1"></li>
+                              <li class="rating-item" data-rate="2" value="2"></li>
+                              <li class="rating-item" data-rate="3" value="3"></li>
+                              <li class="rating-item" data-rate="4" value="4"></li>
+                              <li class="rating-item" data-rate="5" value="5"></li>
+                          </ul>
+                      </span>
                       <br/>
                       <textarea placeholder="Write your review" name="review" id="review" maxlength="300"></textarea><br/><br/>
                       <input type="submit" value="Confirm" id="submRev">

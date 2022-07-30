@@ -19,10 +19,25 @@ def login_required(f): #taken from https://www.youtube.com/watch?v=_pzMDIi5BuI
             return redirect(url_for('home'))
     return wrap
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template("/home.html")
 
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        rating = request.form.get('rating')
+        review = request.form['review']
+        print(name, email, rating, review)
+
+        cur.execute("INSERT INTO review(rv_name, rv_email, rv_rating, review) VALUES(%s,%s,%s,%s)",
+                    (name, email, rating, review))
+        conn.commit()
+        cur.close()
+        flash('Review Submitted')
+
+    return render_template("/home.html")
 @app.route('/restaurant')
 def restaurant():
     return render_template("/restaurant.html")
@@ -182,7 +197,24 @@ def signup():
         phone = request.form['phone']
         address = request.form['address']
         pwd = request.form['pwd']
+        pwdC = request.form['pwdC']
         role_id = 1
+
+        cur.execute("SELECT email FROM customer")
+        emailVal = cur.fetchall()
+        email_list = []
+        for sublist in emailVal:
+            for item in sublist:
+                email_list.append(item)
+
+        if pwd != pwdC:
+            return render_template('/signup.html', error='The passwords must match.')
+
+        for i in email_list:
+            if email not in email_list:
+                pass
+            else:
+                return render_template('/signup.html', error='This email is in use. Please choose another one!')
 
         cur.execute("INSERT INTO customer(fname, lname, email, phone, address, role_id) VALUES(%s,%s,%s,%s,%s,%s)",(fname, lname, email, phone, address, role_id))
 
