@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Reggio Cantina</title>
+        <link rel="shortcut icon" href="/static/img/logo.jpg.png">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <link rel="stylesheet" type="text/css" href="../static/home.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <style>
+
+    </style>
+    </head>
+        <body>
+
+        <div class="header">
+          <a href="/"><img src="/static/img/logo.jpg.png" alt="Restaurants Bar"></a>
+        </div><br>
+
+        <div class="topnav">
+          <a href="restaurant">Restaurant</a>
+          <a href="#">Menus</a>
+          <a href="reservation">Reservations</a>
+          <a href="findus">Find Us</a>
+          <a href="logout" style="float:right">Log out</a>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h2>Our Options</h2>
+                        <h5>Our menu is carefully selected daily with fresh ingredients</h5>
+                        <div class="fakeimg">
+
+                            <div class="menu">
+                              <table id="menuMain" class="menu_items">
+                                <h3 id="tabHead">Mains</h3>
+                                <tbody>
+                                  {% for row in meal_list %}
+                                  <tr>
+                                    <td style="width: 15%">{{row[0]}}</td>
+                                    <td style="width: 50%">{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+
+                              <table id="menuDess" class="menu_items">
+                                <h3 id="tabHead">Desserts</h3>
+                                <tbody>
+                                   {% for row in dessert_list %}
+                                   <tr>
+                                     <td style="width: 15%">{{row[0]}}</td>
+                                     <td style="width: 50%">{{row[1]}}</td>
+                                     <td>{{row[2]}}</td>
+                                     <td>{{row[3]}}</td>
+                                   </tr>
+                                   {% endfor %}
+                                </tbody>
+                              </table>
+
+                              <table id="menuDrink" class="menu_items">
+                                <h3 id="tabHead">Drinks</h3>
+                                <tbody>
+                                  {% for row in drink_list %}
+                                  <tr>
+                                    <td style="width: 15%">{{row[0]}}</td>
+                                    <td style="width: 50%">{{row[1]}}</td>
+                                    <td>{{row[2]}}</td>
+                                    <td>{{row[3]}}</td>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+
+                        </div>
+                        <p>Please ask for the allergens list</p>
+                    </div>
+                </div>
+                <div class="rightcolumn">
+                    <div class="card">
+                        <h2>Hello {{ fname }}</h2>
+                        <div class="orderForm">
+                            <form action="#" method="post" id="cxOrder"><br/>
+                                <datalist id="menu">
+                                    {% for row in items_list %}
+                                    <option value= {{row[0]}}>
+                                    {% endfor %}
+                                </datalist>
+                                    <div class="appending_div">
+                                      <div>
+                                          <input placeholder="Select" list="menu" name="item" class="item" required>
+                                          <input placeholder="0" type="number" name="quantity" class="quantity" required>
+                                          <span class="fa fa-plus add"></span>
+                                      </div>
+                                    </div>
+                                <br/>
+                                <br/>
+                                <textarea placeholder="Special requests" name="request" id="orderRequest" maxlength="300"></textarea><br/><br/>
+                                <input type="submit" value="Submit" id="subOrder">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+              <a href="#">The Team</a> |
+              <a href="#">Careers</a> |
+              <a href="#">Contact Us</a>
+        </div>
+
+    <script>
+        $(document).ready(function() {
+            var i = 2;
+              $('.add').on('click', function() {
+                var field = '<br><div><input placeholder="Select" list="menu" name="item" class="item" required> <input placeholder="0" type="number" name="quantity" class="quantity" required>  '+i+'';
+                $('.appending_div').append(field);
+                i = i+1;
+              })
+            })
+    </script>
+    </body>
+</html>

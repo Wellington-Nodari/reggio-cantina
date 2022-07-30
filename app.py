@@ -87,6 +87,38 @@ def adm_menu():
 
     return render_template("/adm_menu.html", meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list)
 
+@app.route('/order', methods=['GET', 'POST'])
+@login_required
+def order():
+    email = str(session['email'])
+    if session is None:
+        print('session is none')
+
+    else:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        cur.execute("SELECT fname FROM customer WHERE email='{}'".format(email))
+        name = cur.fetchall()
+        fname = name[0][0]
+
+        m = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
+        cur.execute(m)
+        meal_list = cur.fetchall()
+        d = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
+        cur.execute(d)
+        dessert_list = cur.fetchall()
+        w = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
+        cur.execute(w)
+        drink_list = cur.fetchall()
+
+
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        m = '''SELECT item_name FROM menu ORDER BY item_menu_id ASC;'''
+        cur.execute(m)
+        order = cur.fetchall()
+
+        return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order)
+
 @app.route('/reservation')
 def reservation():
     return render_template("/reservation.html")
@@ -101,31 +133,35 @@ def login():
     if request.method == 'POST':
         email = str(request.form["email"])
         pwd = str(request.form["pwd"])
-        cur.execute("SELECT email, pwd FROM login WHERE email='{}' AND pwd='{}';".format(email, pwd))
+        cur.execute("SELECT * FROM login WHERE email='{}' AND pwd='{}';".format(email, pwd))
         row = cur.fetchall()
-        try:
-            if row[0][0] == email and row[0][1] == pwd:
-                session['logged_in'] = True
-                cur.close()
-                session['email'] = email
-                if session['logged_in'] is True:
-                    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-                    cur.execute("SELECT role_id FROM login WHERE email='{}'".format(email))
-                    role = cur.fetchall()
+        print(row)
 
-                    if role[0][0] == 2:
-                        cur.close()
-                        return redirect(url_for('admin'))
-                    elif role[0][0] == 3 and role[0][0] == 2:
-                        cur.close()
-                        return redirect(url_for('floor'))
-                    elif role[0][0] == 4 and role[0][0] == 3 and role[0][0] == 2:
-                        cur.close()
-                        return redirect(url_for('kitchen'))
-                    if role[0][0] == 1:
-                        cur.close()
-                        return redirect(url_for('menu'))
-        except:
+        if row[0][1] == email and row[0][2] == pwd:
+            session['logged_in'] = True
+            session['email'] = email
+            if session['logged_in'] is True:
+                cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+                cur.execute("SELECT role_id FROM login WHERE email='{}'".format(email))
+                role = cur.fetchall()
+
+                if role[0][0] == 2:
+                    cur.close()
+                    return redirect(url_for('admin'))
+
+                if role[0][0] == 3:
+                    cur.close()
+                    return redirect(url_for('floor'))
+
+                if role[0][0] == 4:
+                    cur.close()
+                    return redirect(url_for('kitchen'))
+
+                if role[0][0] == 1:
+                    cur.close()
+                    return redirect(url_for('order'))
+
+        else:
             error = 'Invalid credentials. Please try again'
             return render_template('/home.html', error=error)
     else:
@@ -162,7 +198,6 @@ def signup():
 @login_required
 def admin():
     email = str(session['email'])
-    print(email)
     if session is None:
         print('session is none')
     else:
@@ -174,28 +209,41 @@ def admin():
         name = cur.fetchall()
         fname = name[0][0]
 
-        if role[0][0] == 1:
+        if role[0][0] == 2:
             cur.close()
             return render_template("/adm_page.html", fname=fname)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
 
-@app.route('/staff')
-@login_required
-def staff():
-    email = str(session['email'])
-    return render_template("/staff.html")
+# @app.route('/staff')
+# @login_required
+# def staff():
+#     email = str(session['email'])
+#     return render_template("/staff.html")
 
 @app.route('/floor')
 @login_required
 def floor():
     email = str(session['email'])
-    print(email)
     if session is None:
         print('session is none')
     else:
-        return render_template("/floor.html")
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+        role = cur.fetchall()
+        print('flore')
+
+        cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
+        name = cur.fetchall()
+        fname = name[0][0]
+
+        if role[0][0] == 3:
+            cur.close()
+            return render_template("/floor.html", fname=fname)
+        else:
+            error = 'You do not have permission for accessing this page. Access denied!'
+            return render_template("/home.html", error=error)
 
 @app.route('/kitchen')
 @login_required
@@ -205,7 +253,21 @@ def kitchen():
     if session is None:
         print('session is none')
     else:
-        return render_template("/kitchen.html")
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+        role = cur.fetchall()
+
+        cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
+        name = cur.fetchall()
+        print(name)
+        fname = name[0][0]
+
+        if role[0][0] == 4:
+            cur.close()
+            return render_template("/kitchen.html", fname=fname)
+        else:
+            error = 'You do not have permission for accessing this page. Access denied!'
+            return render_template("/home.html", error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -464,3 +464,14 @@ td {
     height-max: auto;
     font-size: 20px;
 }
+
+/* Orders */
+
+#orderRequest {
+    width: 50%;
+    height: 75px;
+}
+
+.orderForm span{
+    cursor: pointer;
+}
