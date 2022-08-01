@@ -27,15 +27,15 @@ def home():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        rating = request.form.get('rating')
+        rating = request.form.get('active')
         review = request.form['review']
         print(name, email, rating, review)
 
-        cur.execute("INSERT INTO review(rv_name, rv_email, rv_rating, review) VALUES(%s,%s,%s,%s)",
-                    (name, email, rating, review))
-        conn.commit()
-        cur.close()
-        flash('Review Submitted')
+        # cur.execute("INSERT INTO review(rv_name, rv_email, rv_rating, review) VALUES(%s,%s,%s,%s)",
+        #             (name, email, rating, review))
+        # conn.commit()
+        # cur.close()
+        # flash('Review Submitted')
 
     return render_template("/home.html")
 @app.route('/restaurant')
@@ -126,11 +126,44 @@ def order():
         cur.execute(w)
         drink_list = cur.fetchall()
 
-
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         m = '''SELECT item_name FROM menu ORDER BY item_menu_id ASC;'''
         cur.execute(m)
         order = cur.fetchall()
+
+        if request.method == 'POST':
+            varItm = ['item']
+            varQty = ['quantity']
+            for i in range(len(varItm)):
+                while i <= 13:
+                    varItm.append(f"item{i}")
+                    varQty.append(f"quantity{i}")
+                    i += 1
+                    try:
+                        item = str(request.values[varItm[i]])
+                        quantity = str(request.values[varQty[i]])
+                        print(item)
+                        print(quantity)
+                    except:
+                        continue
+                    if item is not None:
+                        cur.execute("SELECT item_price FROM menu WHERE item_name='{}';".format(item))
+                        price = cur.fetchall()
+                        price_list = 0
+                        for sublist in price:
+                            for item in sublist:
+                                price_list = float(item)
+                        qty = float(quantity)
+                        print(price_list*qty)
+
+                        # subtotal = price_list
+                    else:
+                        break
+
+
+
+
+
 
         return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order)
 

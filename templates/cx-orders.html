@@ -88,19 +88,25 @@
                             <form action="#" method="post" id="cxOrder"><br/>
                                 <datalist id="menu">
                                     {% for row in items_list %}
-                                    <option value= {{row[0]}}>
+                                    <option value="{{row[0]}}">{{row[0]}}</option>
                                     {% endfor %}
                                 </datalist>
                                     <div class="appending_div">
                                       <div>
-                                          <input placeholder="Select" list="menu" name="item" class="item" required>
-                                          <input placeholder="0" type="number" name="quantity" class="quantity" required>
+                                          <input placeholder="Select" list="menu" name="item0" class="item" required>
+                                          <input placeholder="0" type="number" name="quantity0" class="quantity" min="0" required>
                                           <span class="fa fa-plus add"></span>
                                       </div>
                                     </div>
                                 <br/>
                                 <br/>
                                 <textarea placeholder="Special requests" name="request" id="orderRequest" maxlength="300"></textarea><br/><br/>
+
+                                {% for row in subtotal %}
+                                <option value="{{row[0]}}">Subtotal: {{row[0]}}</option>
+                                {% endfor %}
+                                <br/>
+
                                 <input type="submit" value="Submit" id="subOrder">
                             </form>
                         </div>
@@ -117,13 +123,19 @@
 
     <script>
         $(document).ready(function() {
-            var i = 2;
+            var i = 1;
               $('.add').on('click', function() {
-                var field = '<br><div><input placeholder="Select" list="menu" name="item" class="item" required> <input placeholder="0" type="number" name="quantity" class="quantity" required>  '+i+'';
+                var field = '<br><div><input placeholder="Select" list="menu" name="item'+i+'" class="item" required> <input placeholder="0" type="number" name="quantity'+i+'" class="quantity" required>  '+i+'';
                 $('.appending_div').append(field);
                 i = i+1;
               })
-            })
+            $('select').change(function () {
+                if ($('select option[value="$(this).val()"]:checked').length > 1)
+                {
+                    alert('you have already selected this item')
+                }
+            });
+        });
     </script>
     </body>
 </html>

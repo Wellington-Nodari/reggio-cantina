@@ -286,9 +286,18 @@ body {
 }
 
 .rating {
-  float: center;
   display: flex;
-  text-align: center;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+span.rating {
+  margin-left:auto;
+  margin-right: auto;
+}
+
+ul#rating.rating{
+    padding-inline-start: 0px;
 }
 
 .rating li {
