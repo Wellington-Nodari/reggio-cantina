@@ -263,6 +263,11 @@ body {
   border-radius: 10px;
 }
 
+#formRev input{
+  width: auto;
+  font-size: 18px;
+}
+
 .active, #reviewForm:hover {
   background-color: #555;
 }
@@ -286,6 +291,7 @@ body {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
+  max-width: 50%;
 }
 
 span.rating {
@@ -312,6 +318,9 @@ span.rating {
   background-color: #f7f7f7;
   border-radius: 10px;
   padding: 10px;
+  padding-top: 15px;
+  height: auto;
+  width: auto;
 }
 
 /* Footer */
@@ -426,7 +435,6 @@ td {
     text-align: center;
     height: auto;
     width: auto;
-
 }
 
 #loginForm #signupForm {
@@ -448,14 +456,14 @@ td {
     width: 30%;
     width-max: auto;
     height-max: auto;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 #signupForm input {
     width: 30%;
     width-max: auto;
     height-max: auto;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* Orders */
