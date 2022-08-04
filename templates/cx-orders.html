@@ -93,6 +93,7 @@
                                 </datalist>
                                     <div class="appending_div">
                                       <div>
+                                          <span class="fa fa-minus remove"></span>
                                           <input placeholder="Select" list="menu" name="item0" class="item" required>
                                           <input placeholder="0" type="number" name="quantity0" class="quantity" min="0" required>
                                           <span class="fa fa-plus add"></span>
@@ -102,9 +103,9 @@
                                 <br/>
                                 <textarea placeholder="Special requests" name="request" id="orderRequest" maxlength="300"></textarea><br/><br/>
 
-                                {% for row in subtotal %}
-                                <option value="{{row[0]}}">Subtotal: {{row[0]}}</option>
-                                {% endfor %}
+                                {% if subtotal %}
+                                <option value="{{subtotal}}">€{{subtotal}}</option>
+                                {% endif %}
                                 <br/>
 
                                 <input type="submit" value="Submit" id="subOrder">
@@ -129,6 +130,13 @@
                 $('.appending_div').append(field);
                 i = i+1;
               })
+
+              $('.remove').on('click', function() {
+                var field = '<br><div><input placeholder="Select" list="menu" name="item'-i-'" class="item" required> <input placeholder="0" type="number" name="quantity'-i-'" class="quantity" required>  '-i-'';
+                $('.appending_div').children(div).remove();
+                i = i-1;
+              })
+
             $('select').change(function () {
                 if ($('select option[value="$(this).val()"]:checked').length > 1)
                 {

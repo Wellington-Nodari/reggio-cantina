@@ -257,9 +257,9 @@ body {
   padding: 18px;
   width: 100%;
   border: none;
-  text-align: left;
+  text-align: center;
   outline: none;
-  font-size: 15px;
+  font-size: 20px;
   border-radius: 10px;
 }
 
@@ -271,11 +271,7 @@ body {
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
 }
-
-/* 5 stars rating */
-/* taken from https://www.youtube.com/watch?v=SD7zspiPlQ4&t=186s */
 
 #formDv {
   padding: 15px;
@@ -283,6 +279,7 @@ body {
   display: none;
   padding: 10px;
   border: 1px solid #8B4513;
+  background-color: #f7f7f7;
 }
 
 .rating {
@@ -296,38 +293,25 @@ span.rating {
   margin-right: auto;
 }
 
-ul#rating.rating{
-    padding-inline-start: 0px;
-}
-
-.rating li {
-  list-style-type: none;
-  background: #FFFFE0;
-  text-align: center;
-}
-
-.rating-item {
-  text-align: center;
-  border: none;
+.hover {
+  color: orange;
   cursor: pointer;
+}
+
+.star{
   font-size: 30px;
-  color: #B22222;
 }
 
-.rating-item::before {
-  content: "\2605";
+#review {
+  width: 50%;
+  height: 75px;
 }
 
-.rating-item.active ~ .rating-item::before {
-  content: "\2606";
-}
-
-.rating:hover .rating-item::before {
-  content: "\2605";
-}
-
-.rating-item:hover ~ .rating-item::before {
-  content: "\2606";
+#revDiv{
+  border: 1px solid #8B4513;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 /* Footer */

@@ -27,17 +27,24 @@ def home():
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
-        rating = request.form.get('active')
+        rating = request.form.get('note')
         review = request.form['review']
         print(name, email, rating, review)
 
-        # cur.execute("INSERT INTO review(rv_name, rv_email, rv_rating, review) VALUES(%s,%s,%s,%s)",
-        #             (name, email, rating, review))
-        # conn.commit()
-        # cur.close()
-        # flash('Review Submitted')
+        cur.execute("INSERT INTO review(rv_name, rv_email, rv_rating, review) VALUES(%s,%s,%s,%s)",
+                    (name, email, rating, review))
+        conn.commit()
+        cur.close()
+        flash('Review Submitted')
 
-    return render_template("/home.html")
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    r = '''SELECT rv_name, review, rv_rating FROM review ORDER BY rv_rating DESC;'''
+    cur.execute(r)
+    review_list = cur.fetchall()
+
+
+    return render_template("/home.html", review_list=review_list)
+
 @app.route('/restaurant')
 def restaurant():
     return render_template("/restaurant.html")
@@ -105,6 +112,7 @@ def adm_menu():
 @app.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+    subtotal = 0.00
     email = str(session['email'])
     if session is None:
         print('session is none')
@@ -139,33 +147,41 @@ def order():
                     varItm.append(f"item{i}")
                     varQty.append(f"quantity{i}")
                     i += 1
+                    print(varItm[i])
                     try:
                         item = str(request.values[varItm[i]])
                         quantity = str(request.values[varQty[i]])
                         print(item)
-                        print(quantity)
+                        # print(quantity)
                     except:
                         continue
                     if item is not None:
+                        amount = 0
                         cur.execute("SELECT item_price FROM menu WHERE item_name='{}';".format(item))
                         price = cur.fetchall()
                         price_list = 0
                         for sublist in price:
-                            for item in sublist:
-                                price_list = float(item)
+                            for i in sublist:
+                                price_list = float(i)
                         qty = float(quantity)
-                        print(price_list*qty)
+                        amount += (price_list * qty)
+                        print(amount)
 
-                        # subtotal = price_list
+                        # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+                        # cur.execute("SELECT item_menu_id FROM menu WHERE item_name='{}';".format(item))
+                        # idList = cur.fetchall()
+                        # print(idList)
+                        # id = 0
+                        # for subIdlist in idList:
+                        #     for item in subIdlist:
+                        #         id = item
+                        # d[id] = quantity
                     else:
                         break
+                subtotal = (format(amount, '.2f'))
 
 
-
-
-
-
-        return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order)
+        return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal)
 
 @app.route('/reservation')
 def reservation():
