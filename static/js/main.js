@@ -1,3 +1,5 @@
+// For display the hidden form for write reviews
+
 let revF = document.getElementById('reviewForm');
 let formC = document.getElementById('formDv');
 
@@ -9,6 +11,7 @@ let formC = document.getElementById('formDv');
     }
     });
 
+// Handling the 5 stars selection for rating
 
 const ratings = document.querySelectorAll('.rating');
 ratings.forEach(rating =>

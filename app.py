@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 from functools import wraps
-import os
 import psycopg2
 import psycopg2.extras
+import os
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
@@ -37,10 +37,13 @@ def home():
         cur.close()
         flash('Review Submitted')
 
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    r = '''SELECT rv_name, review, rv_rating FROM review ORDER BY rv_rating DESC;'''
-    cur.execute(r)
-    review_list = cur.fetchall()
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        r = '''SELECT rv_name, review, rv_rating FROM review ORDER BY rv_rating DESC;'''
+        cur.execute(r)
+        review_list = cur.fetchall()
+    except:
+        pass
 
 
     return render_template("/home.html", review_list=review_list)

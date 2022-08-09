@@ -97,7 +97,8 @@
                             <i class="star" data-checked="false" data-note="4">&#9733;</i>
                             <i class="star" data-checked="false" data-note="5">&#9733;</i>
                           </span>
-                       </option><br>
+                       </option>
+                       <p>---------------------</p>
                     {% endfor %}
                </list>
             </div><br><br>
@@ -107,8 +108,7 @@
                   <form action="#" method="post" id="formRev"><br/>
                       <input placeholder="Name" type="text" name="name" id="name" required><br/>
                       <br/>
-                      <input placeholder="Email" type="email" name="email" id="email" required><br/>
-                      <br/>
+                      <input placeholder="Email" type="email" name="email" id="email" required>
                       <input type="text" name="note" id="note" value="" onchange="updateInput(this.value)" style="display:none">
                       <div name="note">
                       <span class="rating" data-rating="0">
@@ -122,13 +122,11 @@
                         <i class="note" style="display:none"></i>
                       </span>
                       </div>
-
-                      <br/>
                       <textarea placeholder="Write your review" name="review" id="review" maxlength="300"></textarea><br/><br/>
                       <button type="submit" value="Confirm" id="submRev" onclick="alert">Confirm</button>
                   </form>
               </div>
-              <h3>Follow Us on</h3><br>
+              <h3>Follow Us on</h3>
               <div class="sm-icons">
                   <a href="https://instagram.com" target="window" class="fa fa-instagram"></a>
                   <a href="https://twitter.com" target="window" class="fa fa-twitter"></a>

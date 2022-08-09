@@ -41,7 +41,6 @@
                                     <td style="width: 15%">{{row[0]}}</td>
                                     <td style="width: 50%">{{row[1]}}</td>
                                     <td>{{row[2]}}</td>
-                                    <td>{{row[3]}}</td>
                                   </tr>
                                   {% endfor %}
                                 </tbody>
@@ -55,24 +54,22 @@
                                      <td style="width: 15%">{{row[0]}}</td>
                                      <td style="width: 50%">{{row[1]}}</td>
                                      <td>{{row[2]}}</td>
-                                     <td>{{row[3]}}</td>
                                    </tr>
                                    {% endfor %}
                                 </tbody>
                               </table>
 
-                              <table id="menuDrink" class="menu_items">
-                                <h3 id="tabHead">Drinks</h3>
-                                <tbody>
-                                  {% for row in drink_list %}
-                                  <tr>
-                                    <td style="width: 15%">{{row[0]}}</td>
-                                    <td style="width: 50%">{{row[1]}}</td>
-                                    <td>{{row[2]}}</td>
-                                    <td>{{row[3]}}</td>
-                                  {% endfor %}
-                                </tbody>
-                              </table>
+                                    <table id="menuDrink" class="menu_items">
+                                    <h3 id="tabHead">Drinks</h3>
+                                    <tbody>
+                                      {% for row in drink_list %}
+                                      <tr>
+                                        <td style="width: 15%">{{row[0]}}</td>
+                                        <td style="width: 50%">{{row[1]}}</td>
+                                        <td>{{row[2]}}</td>
+                                      {% endfor %}
+                                    </tbody>
+                                  </table>
                             </div>
 
                         </div>
