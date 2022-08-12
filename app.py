@@ -115,7 +115,6 @@ def adm_menu():
 @app.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
-    # items_list = {}
     subtotal = 0.00
     email = str(session['email'])
     if session is None:
@@ -144,7 +143,6 @@ def order():
         order = cur.fetchall()
 
         if request.method == 'POST':
-            # items_list = {}
             varItm = ['item']
             varQty = ['quantity']
             for i in range(len(varItm)):
@@ -161,11 +159,13 @@ def order():
                         print(quantity)
                     except:
                         continue
+
                     if item is not None:
                         amount = 0
                         cur.execute("SELECT item_price FROM menu WHERE item_name='{}';".format(item))
                         price = cur.fetchall()
                         price_list = 0
+
                         for sublist in price:
                             for j in sublist:
                                 price_list = float(j)
@@ -189,6 +189,7 @@ def order():
 
                 print(items_list)
                 subtotal = (format(subtotal, '.2f'))
+                items_list.clear()
 
 
         return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal)

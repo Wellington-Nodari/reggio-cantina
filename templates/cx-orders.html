@@ -106,7 +106,8 @@
                                             </table></br>
                                             <div class="row m-0">
                                                 <button class="btn btn-warning" onclick="addRow()">Add Item</button>
-                                                <button type="Submit" class="btn btn-primary ml-auto">Submit</button>
+<!--                                                <input  type='button' name='toBasket' id="toModal" value='Submit' title='Click to submit.'/>-->
+                                                <button type="submit">Add to Basket</button>
                                                 <tbody>
                                                 </tbody>
                                             </div>
@@ -116,13 +117,23 @@
                                 <br/>
                                 <textarea placeholder="Special requests" name="request" id="orderRequest" maxlength="300"></textarea><br/><br/>
 
-                                {% if subtotal %}
-                                <option value="{{subtotal}}">€{{subtotal}}</option>
-                                {% endif %}
-                                <br/>
-                                <input type="submit" value="Submit" id="subOrder" onClick="refreshPage">
+                                <input type="button" id="toModal" data-target="#myModal" value='Check Out' title='Click to submit' style="width: 30%;">
                             </form>
                         </div>
+
+                            <div id="myModal" class="modal">
+                                <div class ="modal-content">
+                                    <span class="close">&times;</span>
+                                    {% if subtotal %}
+                                        <option value="{{subtotal}}">€{{subtotal}}</option>
+                                    {% endif %}
+                                    <br/>
+                                    <input type="submit" value="Confirm Order" id="subOrder">
+                            </div>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>

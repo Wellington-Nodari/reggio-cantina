@@ -8,6 +8,13 @@ body {
   background: #20B2AA;
 }
 
+input, textarea, button{
+  border-radius: 5px;
+  border: 1px solid #8B4513;
+  font-size: auto;
+  width-max: auto;
+}
+
 /* Header/Blog Title */
 .header {
   padding: 30px;
@@ -385,6 +392,8 @@ span.rating {
     }
 }
 
+@media screen and (min-width: 1150px) {
+
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-btn {
   background-color: #555;
@@ -498,3 +507,47 @@ td {
     height: auto;
 }
 
+
+/* The MODAL (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+  border-radius: 10px;
+  border: 1px solid #8B4513;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#myModal {
+  -webkit-transform: translate3d(0, 0, 0);
+}
