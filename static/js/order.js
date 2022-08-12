@@ -3,10 +3,9 @@ var tbodyRef = document.getElementById('orderTable').getElementsByTagName('tbody
 
 function rowTemplate(i) {
   return `<tr data-index=${i}>
-      <td>${i}</td>
       <td><input placeholder="Select" list="menu" name="item${i}" class="item" required></td>
       <td><input placeholder="0" type="number" name="quantity${i}" class="quantity" min="0" required></td>
-      <td><i class="fa fa-times-circle" style="font-size: 15px; color: red;" onclick="removeRow(${i})"></i></td>
+      <td><i class="fa fa-times-circle" style="font-size: 12px; color: #B22222;" onclick="removeRow(${i})"></i></td>
     </tr>`
 }
 
@@ -54,3 +53,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+//      <td>${i}</td>
