@@ -143,19 +143,21 @@ def order():
         order = cur.fetchall()
 
         if request.method == 'POST':
+            items_list = {}
             varItm = ['item']
             varQty = ['quantity']
             for i in range(len(varItm)):
+                subtotal = 0
                 while i <= 13:
                     varItm.append(f"item{i}")
                     varQty.append(f"quantity{i}")
                     i += 1
-                    print(varItm[i])
                     try:
                         item = str(request.values[varItm[i]])
                         quantity = str(request.values[varQty[i]])
+                        items_list[item]=quantity
                         print(item)
-                        # print(quantity)
+                        print(quantity)
                     except:
                         continue
                     if item is not None:
@@ -164,11 +166,12 @@ def order():
                         price = cur.fetchall()
                         price_list = 0
                         for sublist in price:
-                            for i in sublist:
-                                price_list = float(i)
+                            for j in sublist:
+                                price_list = float(j)
                         qty = float(quantity)
-                        amount += (price_list * qty)
-                        print(amount)
+                        amount = amount + (price_list * qty)
+                        subtotal += amount
+                        print(price_list)
 
                         # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
                         # cur.execute("SELECT item_menu_id FROM menu WHERE item_name='{}';".format(item))
@@ -181,7 +184,9 @@ def order():
                         # d[id] = quantity
                     else:
                         break
-                subtotal = (format(amount, '.2f'))
+
+                print(items_list)
+                subtotal = (format(subtotal, '.2f'))
 
 
         return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal)

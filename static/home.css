@@ -475,3 +475,11 @@ td {
 .orderForm span{
     cursor: pointer;
 }
+
+.appending_field table{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: auto;
+    height: auto;
+}
