@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
-
+items_list={}
 conn = psycopg2.connect(dbname = "decidsulj18q74", user = "fphmyvegucmiih", password = "08bdb827e02af0eae42038539b24ecbb0bede1a077e2b210c57c326d77b5aa61", host = "ec2-3-248-121-12.eu-west-1.compute.amazonaws.com")
 
 def login_required(f): #taken from https://www.youtube.com/watch?v=_pzMDIi5BuI
@@ -115,6 +115,7 @@ def adm_menu():
 @app.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+    # items_list = {}
     subtotal = 0.00
     email = str(session['email'])
     if session is None:
@@ -143,7 +144,7 @@ def order():
         order = cur.fetchall()
 
         if request.method == 'POST':
-            items_list = {}
+            # items_list = {}
             varItm = ['item']
             varQty = ['quantity']
             for i in range(len(varItm)):
@@ -184,6 +185,7 @@ def order():
                         # d[id] = quantity
                     else:
                         break
+
 
                 print(items_list)
                 subtotal = (format(subtotal, '.2f'))

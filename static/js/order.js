@@ -16,6 +16,7 @@ for (i = 0; i < 1; i ++) {
 
 function removeRow(i) {
   $(tbodyRef).find(`tr[data-index='${i}']`).remove();
+  i--; return i;
 }
 
 function addRow() {
