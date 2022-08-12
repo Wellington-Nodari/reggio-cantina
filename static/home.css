@@ -323,6 +323,20 @@ span.rating {
   width: auto;
 }
 
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  width: auto;
+  padding: 16px;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* Footer */
 .footer {
   padding: 20px;
@@ -484,16 +498,3 @@ td {
     height: auto;
 }
 
-/* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  width: auto;
-  padding: 16px;
-  color: black;
-  font-weight: bold;
-  font-size: 15px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
-}
