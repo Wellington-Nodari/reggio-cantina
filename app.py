@@ -201,7 +201,6 @@ def order():
                 subtotal = (format(subtotal, '.2f'))
                 items_list.clear()
 
-
         return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal, submitOrder=submitOrder)
 
 @app.route('/reservation')
