@@ -142,6 +142,7 @@ def order():
         cur.execute(m)
         order = cur.fetchall()
 
+        priceToOrder={}
         if request.method == 'POST':
             varItm = ['item']
             varQty = ['quantity']
@@ -172,7 +173,9 @@ def order():
                         qty = float(quantity)
                         amount = amount + (price_list * qty)
                         subtotal += amount
+                        priceToOrder[item]=price_list
                         print(price_list)
+
 
                         # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
                         # cur.execute("SELECT item_menu_id FROM menu WHERE item_name='{}';".format(item))
@@ -185,14 +188,20 @@ def order():
                         # d[id] = quantity
                     else:
                         break
+                submitOrder=[]
+                for z, w in items_list.items():
+                    for x, y in priceToOrder.items():
+                        if z in x:
+                            submitOrder.append([w,x,y])
 
-
+                print(submitOrder)
+                print(priceToOrder)
                 print(items_list)
                 subtotal = (format(subtotal, '.2f'))
                 items_list.clear()
 
 
-        return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal)
+        return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal, submitOrder=submitOrder)
 
 @app.route('/reservation')
 def reservation():
