@@ -115,6 +115,7 @@ def adm_menu():
 @app.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
+    submitOrder = []
     subtotal = 0.00
     email = str(session['email'])
     if session is None:
@@ -188,7 +189,7 @@ def order():
                         # d[id] = quantity
                     else:
                         break
-                submitOrder=[]
+
                 for z, w in items_list.items():
                     for x, y in priceToOrder.items():
                         if z in x:
