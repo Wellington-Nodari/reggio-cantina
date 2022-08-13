@@ -33,51 +33,46 @@
                         <h2>Our Options</h2>
                         <h5>Our menu is carefully selected daily with fresh ingredients</h5>
                         <div class="fakeimg">
-
                             <div class="menu">
-                              <table id="menuMain" class="menu_items">
-                                <h3 id="tabHead">Mains</h3>
-                                <tbody>
-                                  {% for row in meal_list %}
-                                  <tr>
-                                    <td style="width: 15%">{{row[0]}}</td>
-                                    <td style="width: 50%">{{row[1]}}</td>
-                                    <td>{{row[2]}}</td>
-                                    <td>{{row[3]}}</td>
-                                  </tr>
-                                  {% endfor %}
-                                </tbody>
-                              </table>
+                                <table id="menuMain" class="menu_items">
+                                    <h3 id="tabHead">Mains</h3><br>
+                                    <tbody>
+                                    {% for row in meal_list %}
+                                    <tr>
+                                        <td style="text-align: center; width: 15%">{{row[0]}}</td>
+                                        <td style="text-align: center; width: 50%">{{row[1]}}</td>
+                                        <td style="text-align: center;">{{row[2]}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
 
-                              <table id="menuDess" class="menu_items">
-                                <h3 id="tabHead">Desserts</h3>
-                                <tbody>
-                                   {% for row in dessert_list %}
-                                   <tr>
-                                     <td style="width: 15%">{{row[0]}}</td>
-                                     <td style="width: 50%">{{row[1]}}</td>
-                                     <td>{{row[2]}}</td>
-                                     <td>{{row[3]}}</td>
-                                   </tr>
-                                   {% endfor %}
-                                </tbody>
-                              </table>
+                                <table id="menuDess" class="menu_items">
+                                    <h3 id="tabHead">Desserts</h3><br>
+                                    <tbody>
+                                    {% for row in dessert_list %}
+                                     <tr>
+                                         <td style="text-align: center; width: 15%">{{row[0]}}</td>
+                                         <td style="text-align: center; width: 50%">{{row[1]}}</td>
+                                         <td style="text-align: center;">{{row[2]}}</td>
+                                     </tr>
+                                     {% endfor %}
+                                     </tbody>
+                                </table>
 
-                              <table id="menuDrink" class="menu_items">
-                                <h3 id="tabHead">Drinks</h3>
-                                <tbody>
-                                  {% for row in drink_list %}
-                                      <tr>
-                                        <td style="width: 15%">{{row[0]}}</td>
-                                        <td style="width: 50%">{{row[1]}}</td>
-                                        <td>{{row[2]}}</td>
-                                        <td>{{row[3]}}</td>
-                                      </tr>
-                                  {% endfor %}
-                                </tbody>
-                              </table>
+                                <table id="menuDrink" class="menu_items">
+                                    <h3 id="tabHead">Drinks</h3><br>
+                                    <tbody>
+                                        {% for row in drink_list %}
+                                        <tr>
+                                            <td style="text-align: center; width: 15%">{{row[0]}}</td>
+                                            <td style="text-align: center; width: 50%">{{row[1]}}</td>
+                                            <td style="text-align: center;">{{row[2]}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-
                         </div>
                         <p>Please ask for the allergens list</p>
                     </div>
@@ -123,40 +118,35 @@
                         <div id="myModal" class="modal">
                             <div class ="modal-content">
                                 <span class="close">&times;</span>
-                                <h2>Your order</h2>
-
+                                <h2>Your order</h2><br>
                                 <div class="subOrder">
-                                        <table id="orderConf">
-                                            <thead>
+                                    <table id="orderConf">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 15%; text-align: center;">Quantity</th>
+                                                <th style="width: 50%; text-align: center;">Item</th>
+                                                <th style="text-align: center;">Item Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in submitOrder %}
                                                 <tr>
-                                                    <th style="width: 15%; text-align: center;">Quantity</th>
-                                                    <th style="width: 50%; text-align: center;">Item</th>
-                                                    <th style="text-align: center;">Un. Price</th>
+                                                    <td style="width: 15%; text-align: center;">{{i[0]}}</td>
+                                                    <td style="width: 50%; text-align: center;">{{i[1]}}</td>
+                                                    <td style="text-align: center;">{{i[2]}}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for i in submitOrder %}
-                                                    <tr>
-                                                        <td style="width: 15%; text-align: center;">{{i[0]}}</td>
-                                                        <td style="width: 50%; text-align: center;">{{i[1]}}</td>
-                                                        <td style="text-align: center;">{{i[2]}}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table></br>
-
-
-                                        <h3>The total amount:</h3>
-                                        {% if subtotal %}
-                                            <option value="{{subtotal}}">€{{subtotal}}</option>
-                                        {% endif %}
-                                        <br/>
-                                        <input type="submit" value="Confirm Order" id="subOrder">
+                                            {% endfor %}
+                                        </tbody>
+                                    </table></br>
+                                    <h3 style="text-align: right;">Total amount:</h3>
+                                    {% if subtotal %}
+                                        <option value="{{subtotal}}" style="text-align: right;">€{{subtotal}}</option>
+                                    {% endif %}
+                                    <br/>
+                                    <input type="submit" value="Confirm Order" id="subOrder">
                                 </div>
                             </div>
-
-
-
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,7 +162,6 @@
         function.refreshPage(){
             window.location.reload();
         }
-
     </script>
     </body>
 </html>
