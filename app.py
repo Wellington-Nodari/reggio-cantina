@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, session, flash, req
 from functools import wraps
 import psycopg2
 import psycopg2.extras
-import os
+import json
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
@@ -115,8 +115,8 @@ def adm_menu():
 @app.route('/order', methods=['GET', 'POST'])
 @login_required
 def order():
-    submitOrder = []
-    subtotal = 0.00
+    typesList = ["Delivery", "Collection", "Sit In"]
+    orderType = 'None'
     email = str(session['email'])
     if session is None:
         print('session is none')
@@ -137,69 +137,78 @@ def order():
         w = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
         cur.execute(w)
         drink_list = cur.fetchall()
+        cur.close()
 
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         m = '''SELECT item_name FROM menu ORDER BY item_menu_id ASC;'''
         cur.execute(m)
         order = cur.fetchall()
 
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)  # print(email)
+        cur.execute("SELECT customer_id FROM customer WHERE email='{}'".format(email))
+        id = cur.fetchall()
+        cx_id = int(id[0][0])
+
+        submitOrder = []
+        subtotal = 0.00
         priceToOrder={}
         if request.method == 'POST':
             varItm = ['item']
             varQty = ['quantity']
-            for i in range(len(varItm)):
-                subtotal = 0
-                while i <= 13:
-                    varItm.append(f"item{i}")
-                    varQty.append(f"quantity{i}")
-                    i += 1
-                    try:
-                        item = str(request.values[varItm[i]])
-                        quantity = str(request.values[varQty[i]])
-                        items_list[item]=quantity
-                        print(item)
-                        print(quantity)
-                    except:
-                        continue
+            if orderType == 'None':
+                oT = str(request.form.get('oType'))
+                orderType = oT  #
+                for i in range(len(varItm)):
+                    subtotal = 0
+                    while i <= 13:
+                        varItm.append(f"item{i}")
+                        varQty.append(f"quantity{i}")
+                        i += 1
+                        try:
+                            item = str(request.values[varItm[i]])
+                            quantity = str(request.values[varQty[i]])
+                            items_list[item] = quantity
+                        except:
+                            continue
 
-                    if item is not None:
-                        amount = 0
-                        cur.execute("SELECT item_price FROM menu WHERE item_name='{}';".format(item))
-                        price = cur.fetchall()
-                        price_list = 0
+                        if item is not None:
+                            amount = 0
+                            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+                            cur.execute("SELECT item_price FROM menu WHERE item_name='{}';".format(item))
+                            price = cur.fetchall()
+                            price_list = 0
 
-                        for sublist in price:
-                            for j in sublist:
-                                price_list = float(j)
-                        qty = float(quantity)
-                        amount = amount + (price_list * qty)
-                        subtotal += amount
-                        priceToOrder[item]=price_list
-                        print(price_list)
+                            for sublist in price:
+                                for j in sublist:
+                                    price_list = float(j)
+                            qty = float(quantity)
+                            amount = amount + (price_list * qty)
+                            subtotal += amount
+                            priceToOrder[item] = price_list
 
-
-                        # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-                        # cur.execute("SELECT item_menu_id FROM menu WHERE item_name='{}';".format(item))
-                        # idList = cur.fetchall()
-                        # print(idList)
-                        # id = 0
-                        # for subIdlist in idList:
-                        #     for item in subIdlist:
-                        #         id = item
-                        # d[id] = quantity
-                    else:
-                        break
+                            print(".")
+                        else:
+                            break
 
                 for z, w in items_list.items():
                     for x, y in priceToOrder.items():
                         if z in x:
-                            submitOrder.append([w,x,y])
+                            submitOrder.append([w, x, y])
 
-                print(submitOrder)
-                print(priceToOrder)
-                print(items_list)
+                a = []
+                a.append(str(json.dumps(submitOrder)))
+                a.append(str(subtotal))
                 subtotal = (format(subtotal, '.2f'))
                 items_list.clear()
+
+                if orderType in typesList:
+                    print('z')
+                    print(orderType, a)
+                    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+                    cur.execute("INSERT INTO customerorders(order_date, order_type, cx_id, order_details, order_amount, order_status) VALUES(now(),%s,%s,%s,%s,%s)",(orderType, cx_id, a[0], a[1], 'Preparing'))
+                    conn.commit()
+                    cur.close()
+
 
         return render_template("/cx-orders.html",fname=fname, meal_list = meal_list, dessert_list = dessert_list, drink_list = drink_list, items_list=order, subtotal=subtotal, submitOrder=submitOrder)
 

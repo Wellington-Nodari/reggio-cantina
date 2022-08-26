@@ -44,6 +44,7 @@ btn.onclick = function() {
 span.onclick = function(e) {
   modal.style.display = "none";
   e.preventDefault();
+//  setTimeout("location.reload(true);",timeoutPeriod);
   return false;
 }
 
@@ -55,4 +56,10 @@ window.onclick = function(event) {
 }
 
 
-//      <td>${i}</td>
+function timedRefresh(timeoutPeriod) {
+	setTimeout("location.reload(true);",timeoutPeriod);
+}
+
+function OrderConfirmed() {
+  alert("Yor Order is Being Prepared!!!");
+}
