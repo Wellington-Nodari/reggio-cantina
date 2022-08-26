@@ -128,13 +128,13 @@ def order():
         name = cur.fetchall()
         fname = name[0][0]
 
-        m = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
+        m = '''SELECT item_menu_id, item_name, item_price FROM menu WHERE item_category = 'meal' ORDER BY item_menu_id ASC;'''
         cur.execute(m)
         meal_list = cur.fetchall()
-        d = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
+        d = '''SELECT item_menu_id, item_name, item_price FROM menu WHERE item_category = 'dessert' ORDER BY item_menu_id ASC;'''
         cur.execute(d)
         dessert_list = cur.fetchall()
-        w = '''SELECT item_menu_id, item_name, item_desc FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
+        w = '''SELECT item_menu_id, item_name, item_price FROM menu WHERE item_category = 'drink' ORDER BY item_menu_id ASC;'''
         cur.execute(w)
         drink_list = cur.fetchall()
         cur.close()
