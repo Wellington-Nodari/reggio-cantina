@@ -3,6 +3,8 @@ from functools import wraps
 import psycopg2
 import psycopg2.extras
 import json
+import matplotlib.pyplot as plt
+import numpy as np
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
@@ -354,6 +356,12 @@ def admin():
         todayGuests = cur.fetchone()
         guestCount = todayGuests[0]
         guestAmount = todayGuests[1]
+
+        pChart = np.array([deliveryAmount,collectionsAmount, guestAmount])
+        pChartLabels = ['Delivery', 'Collection', 'Guests']
+
+        plt.pie(pChart, labels = pChartLabels)
+        plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
 
         if role[0][0] == 2:
             cur.close()

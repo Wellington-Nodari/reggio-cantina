@@ -596,10 +596,14 @@ td {
   height-max:auto;
 }
 
-.subcard tr{
+.subcard #charts{
+  display: inline;
   width: auto;
+  height: auto;
   text-align: center;
   margin-right: auto;
-  margin-left: auto;
-
+  margin-left: 5px;
+  border: 1px solid #8B4513;
+  border-radius: 4px;
+  padding: 5px;
 }
