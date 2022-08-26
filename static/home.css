@@ -557,14 +557,49 @@ td {
 
 .list_reports {
    width: 100%;
-   background: silver;
-   border-style: solid;
-   border-width: 2px;
+   height: auto;
+   border: 1px solid #8B4513;
    border-radius: 5px;
-   border-color: #8B4513;
+   border-color: #B22222;
    color: black;
+   height-max: 10px;
+   overflow: scroll;
 }
 
 .list_reports #tabHead{
     font-size: 20px;
+}
+
+#totalSales{
+    background: #B22222;
+    width: 30%;
+    color: #FFFFE0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.subcard {
+  display: flex;
+  height: auto;
+  height-max: 250px;
+  width: auto;
+  overflow-y: scroll;
+}
+
+.subcard tbody{
+  display: inline;
+  border: 1px solid #8B4513;
+  border-radius: 4px;
+  padding: 5px;
+  width-max: auto;
+  width:50%;
+  height-max:auto;
+}
+
+.subcard tr{
+  width: auto;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+
 }

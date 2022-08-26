@@ -28,9 +28,8 @@
           <div class="leftcolumn">
             <div class="card">
               <h2>Hello {{ fname }}</h2>
-
+                <h3>Restaurant's Month Sales Report</h3>
                 <table class="list_reports">
-                    <h3>Restaurant's Month Sales Report</h3><br>
                     <tbody>
                     {% for row in monthSalesReport %}
                      <tr>
@@ -41,15 +40,43 @@
                      {% endfor %}
                      </tbody>
                 </table>
-
-              <p>{{ totalSalesAmount }}</p>
+                <p>Month-to-date $ales</p>
+                <h1 id="totalSales" style="border-radius: 4px;">€{{ totalSalesAmount }}</h1>
             </div>
             <div class="card">
               <h2>Today's Overview</h2>
-              <h5>Head Cheff, since Dec 7, 2017</h5>
-              <div class="cheffImg">
-                  <img src="/static/img/sales.jpg" alt="This is Sales List">
-                  <img src="/static/img/orders.jpg" alt="This is Order's List">
+              <div class="subcardDiv">
+                  <table class="subcard">
+                  <tbody>
+                    {% for row in todaySalesReport %}
+                     <tr>
+                         <td style="text-align: center; width: 15%">{{row[0]}}</td>
+                         <td style="text-align: center; width: 15%">€{{row[1]}}</td>
+                     </tr>
+                     {% endfor %}
+                     {% for row in todaySalesCountAmount %}
+                     <tr>
+                         <td style="text-align: center; width: 15%; background: #B22222; color: #FFFFE0;">Numb. Orders: {{row[0]}}</td>
+                         <td style="text-align: center; width: 15%; background: #B22222; color: #FFFFE0;">Total amount: €{{row[1]}}</td>
+                     </tr>
+                     {% endfor %}
+                    </tbody>
+
+                  <tbody>
+                    {% for row in todaySalesReport %}
+                     <tr>
+                         <td style="text-align: center; width: 15%">{{row[0]}}</td>
+                         <td style="text-align: center; width: 15%">€{{row[1]}}</td>
+                     </tr>
+                     {% endfor %}
+                     {% for row in todaySalesCountAmount %}
+                     <tr>
+                         <td style="text-align: center; width: 15%; background: #B22222; color: #FFFFE0;">Numb. Orders: {{row[0]}}</td>
+                         <td style="text-align: center; width: 15%; background: #B22222; color: #FFFFE0;">Total amount: €{{row[1]}}</td>
+                     </tr>
+                     {% endfor %}
+                    </tbody>
+                    </table>
               </div>
               <p>Just about love cooking...</p>
               <p>“For us, the welcome sign is feeding people. At the heart of every cuisine, whether rich or poor, is the spirit of conviviality, the pleasure that comes from sharing a meal with others.
@@ -60,6 +87,23 @@
 
           <div class="rightcolumn">
             <div class="card">
+
+                 <input list="months" name="months" value="" required><br/>
+                        <datalist id="months">
+                            <option value="1">
+                            <option value="2">
+                            <option value="3">
+                            <option value="4">
+                            <option value="5">
+                            <option value="6">
+                            <option value="7">
+                            <option value="8">
+                            <option value="9">
+                            <option value="10">
+                            <option value="11">
+                            <option value="12">
+                        </datalist></br>
+
               <h2>The House Speciality</h2>
               <h5>Traditional South Italian Food</h5>
               <div class="cheffImg"><img src="/static/img/speciality.jpg" alt="Restaurants Bar"></div>

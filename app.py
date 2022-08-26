@@ -318,18 +318,31 @@ def admin():
         name = cur.fetchone()
         fname = name[0]
 
-        cur.execute('''SELECT order_type, order_date, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = 8;''')
+        # month sales list
+        cur.execute('SELECT EXTRACT(MONTH FROM now());')
+        m = cur.fetchone()
+        month = m[0]
+        print(month)
+        cur.execute("SELECT order_type, order_date, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
         monthSalesReport = cur.fetchall()
-
-        cur.execute('''SELECT SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = 8;''')
+        cur.execute("SELECT SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
         x = cur.fetchone()
         totalSalesAmount = x[0]
 
-
+        # today's sales list
+        cur.execute('SELECT CURRENT_DATE;')
+        d = cur.fetchone()
+        date = d[0]
+        print(date)
+        cur.execute("SELECT order_type, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
+        todaySalesReport = cur.fetchall()
+        cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
+        y = cur.fetchall()
+        todaySalesCountAmount = y
 
         if role[0][0] == 2:
             cur.close()
-            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount)
+            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount, todaySalesReport=todaySalesReport, todaySalesCountAmount=todaySalesCountAmount)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
