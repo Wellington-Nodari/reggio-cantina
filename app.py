@@ -340,9 +340,24 @@ def admin():
         y = cur.fetchall()
         todaySalesCountAmount = y
 
+        # today's order's numbers by type
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Delivery';".format(date))
+        todayDeliveries = cur.fetchone()
+        deliveryCount = todayDeliveries[0]
+        deliveryAmount = todayDeliveries[1]
+
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Collection';".format(date))
+        todayCollections = cur.fetchone()
+        collectionsCount = todayCollections[0]
+        collectionsAmount = todayCollections[1]
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Sit In';".format(date))
+        todayGuests = cur.fetchone()
+        guestCount = todayGuests[0]
+        guestAmount = todayGuests[1]
+
         if role[0][0] == 2:
             cur.close()
-            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount, todaySalesReport=todaySalesReport, todaySalesCountAmount=todaySalesCountAmount)
+            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount, todaySalesReport=todaySalesReport, todaySalesCountAmount=todaySalesCountAmount, deliveryCount=deliveryCount, deliveryAmount=deliveryAmount, collectionsCount=collectionsCount, collectionsAmount=collectionsAmount, guestCount=guestCount, guestAmount=guestAmount)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
