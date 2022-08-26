@@ -144,7 +144,7 @@ def order():
         cur.execute(m)
         order = cur.fetchall()
 
-        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)  # print(email)
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("SELECT customer_id FROM customer WHERE email='{}'".format(email))
         id = cur.fetchall()
         cx_id = int(id[0][0])
@@ -314,23 +314,29 @@ def admin():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
         role = cur.fetchall()
-
         cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
-        name = cur.fetchall()
-        fname = name[0][0]
+        name = cur.fetchone()
+        fname = name[0]
+
+        cur.execute('''SELECT order_type, order_date, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = 8;''')
+        monthSalesReport = cur.fetchall()
+
+        cur.execute('''SELECT SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = 8;''')
+        x = cur.fetchone()
+        totalSalesAmount = x[0]
+
+
 
         if role[0][0] == 2:
             cur.close()
-            return render_template("/adm_page.html", fname=fname)
+            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
 
-# @app.route('/staff')
-# @login_required
-# def staff():
-#     email = str(session['email'])
-#     return render_template("/staff.html")
+
+
+
 
 @app.route('/floor')
 @login_required

@@ -552,3 +552,19 @@ td {
 #myModal {
   -webkit-transform: translate3d(0, 0, 0);
 }
+
+/* admin page */
+
+.list_reports {
+   width: 100%;
+   background: silver;
+   border-style: solid;
+   border-width: 2px;
+   border-radius: 5px;
+   border-color: #8B4513;
+   color: black;
+}
+
+.list_reports #tabHead{
+    font-size: 20px;
+}

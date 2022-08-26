@@ -61,5 +61,5 @@ function timedRefresh(timeoutPeriod) {
 }
 
 function OrderConfirmed() {
-  alert("Yor Order is Being Prepared!!!");
+  alert("Thank you... Yor Order is Being Prepared!!!");
 }
