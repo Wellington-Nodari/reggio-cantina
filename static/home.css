@@ -588,7 +588,7 @@ td {
 
 .subcard tbody{
   display: inline;
-  border: 1px solid #8B4513;
+
   border-radius: 4px;
   padding: 5px;
   width:100%;
@@ -628,6 +628,7 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
+  border: 1px solid #8B4513;
 }
 
 tr:nth-child(even) {
