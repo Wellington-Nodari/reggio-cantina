@@ -591,9 +591,10 @@ td {
   border: 1px solid #8B4513;
   border-radius: 4px;
   padding: 5px;
-  width-max: auto;
-  width:50%;
+  width:100%;
   height-max:auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .subcard #charts{
@@ -606,4 +607,15 @@ td {
   border: 1px solid #8B4513;
   border-radius: 4px;
   padding: 5px;
+}
+
+.subcard td {
+ text-align: center;
+ border-radius: 4px;
+}
+
+.ktcUpdtOrder{
+  font-size: 10px;
+  margin: 4px 2px;
+  cursor: pointer;
 }

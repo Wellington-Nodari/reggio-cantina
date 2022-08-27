@@ -244,11 +244,11 @@ def login():
                     cur.close()
                     return redirect(url_for('admin'))
 
-                if role[0][0] == 3:
+                if role[0][0] == 3 or role[0][0] == 2:
                     cur.close()
                     return redirect(url_for('floor'))
 
-                if role[0][0] == 4:
+                if role[0][0] == 4 or role[0][0] == 2:
                     cur.close()
                     return redirect(url_for('kitchen'))
 
@@ -388,14 +388,14 @@ def floor():
         name = cur.fetchall()
         fname = name[0][0]
 
-        if role[0][0] == 3:
+        if role[0][0] == 3 or role[0][0] == 2:
             cur.close()
             return render_template("/floor.html", fname=fname)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
 
-@app.route('/kitchen')
+@app.route('/kitchen', methods=['POST','GET'])
 @login_required
 def kitchen():
     email = str(session['email'])
@@ -403,30 +403,54 @@ def kitchen():
     if session is None:
         print('session is none')
     else:
-        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
-        role = cur.fetchall()
-        print(role)
+        if request.method == "POST":
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            id = request.values['kitcButton']
+            print('ping')
+            print(id)
+            cur.execute("UPDATE customerorders SET order_status = 'Ready' WHERE order_id = '{}';".format(id))
 
-        cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
-        name = cur.fetchall()
-        #print(name)
-        fname = name[0][0]
-
-        cur.execute('SELECT CURRENT_DATE;')
-        d = cur.fetchone()
-        date = d[0]
-        cur.execute("SELECT order_id, order_type, order_details FROM customerorders WHERE order_date = '{}';".format(date))
-        kitchenOrders = cur.fetchall()
-        print(kitchenOrders)
-
-
-        if role[0][0] == 4:
-            cur.close()
-            return render_template("/kitchen.html", fname=fname, kitchenOrders=kitchenOrders)
         else:
-            error = 'You do not have permission for accessing this page. Access denied!'
-            return render_template("/home.html", error=error)
+            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+            role = cur.fetchall()
+            print(role)
+
+            cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
+            name = cur.fetchall()
+            #print(name)
+            fname = name[0][0]
+
+            cur.execute('SELECT CURRENT_DATE;')
+            d = cur.fetchone()
+            date = d[0]
+            cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}';".format(date))
+            kitchenOrders = cur.fetchall()
+            print(kitchenOrders[1][1])
+
+            guestsOrder = []
+            colDevOrder = []
+            for i in kitchenOrders:
+                if i[3] == 'Preparing':
+                    print(i[3])
+                    if 'Sit In' in i[1]:
+                        guestsOrder.append(i)
+                    else:
+                        colDevOrder.append(i)
+                else:
+                    guestsOrder.pop(i)
+                    colDevOrder.pop(i)
+
+
+            delivCount = len(colDevOrder)
+            guestsCount = len(guestsOrder)
+
+            if role[0][0] == 4 or role[0][0] == 2:
+                cur.close()
+                return render_template("/kitchen.html", fname=fname, guestsOrder=guestsOrder, colDevOrder=colDevOrder, delivCount=delivCount, guestsCount=guestsCount)
+            else:
+                error = 'You do not have permission for accessing this page. Access denied!'
+                return render_template("/home.html", error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
