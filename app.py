@@ -3,8 +3,8 @@ from functools import wraps
 import psycopg2
 import psycopg2.extras
 import json
-import matplotlib.pyplot as plt
-import numpy as np
+# import matplotlib.pyplot as plt
+# import numpy as np
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
@@ -324,7 +324,6 @@ def admin():
         cur.execute('SELECT EXTRACT(MONTH FROM now());')
         m = cur.fetchone()
         month = m[0]
-        print(month)
         cur.execute("SELECT order_type, order_date, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
         monthSalesReport = cur.fetchall()
         cur.execute("SELECT SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
@@ -407,15 +406,24 @@ def kitchen():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
         role = cur.fetchall()
+        print(role)
 
         cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
         name = cur.fetchall()
-        print(name)
+        #print(name)
         fname = name[0][0]
+
+        cur.execute('SELECT CURRENT_DATE;')
+        d = cur.fetchone()
+        date = d[0]
+        cur.execute("SELECT order_id, order_type, order_details FROM customerorders WHERE order_date = '{}';".format(date))
+        kitchenOrders = cur.fetchall()
+        print(kitchenOrders)
+
 
         if role[0][0] == 4:
             cur.close()
-            return render_template("/kitchen.html", fname=fname)
+            return render_template("/kitchen.html", fname=fname, kitchenOrders=kitchenOrders)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)

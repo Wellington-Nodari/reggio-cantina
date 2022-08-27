@@ -583,7 +583,7 @@ td {
   height: auto;
   height-max: 250px;
   width: auto;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
 }
 
 .subcard tbody{
