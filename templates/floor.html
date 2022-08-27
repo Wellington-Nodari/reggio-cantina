@@ -27,65 +27,77 @@
         <div class="row">
           <div class="leftcolumn">
             <div class="card">
-              <h5>Head Cheff, since Dec 7, 2017</h5>
-              <div class="cheffImg">
-                  <img src="/static/img/sales.jpg" alt="This is Sales List" style="width:100%;height:300px; padding: 5px"> <img src="/static/img/orders.jpg" alt="This is Order's List" style="width:100%;height:300px; padding: 5px">
-              </div>
-              <p>Just about love cooking...</p>
-              <p>“For us, the welcome sign is feeding people. At the heart of every cuisine, whether rich or poor, is the spirit of conviviality, the pleasure that comes from sharing a meal with others. And there is no pleasure in food without quality.”</p>
+              <h2>Today's Deliveries / Collections Orders</h2>
+                <div style="width: 100%">
+                  <table class="subcard" id="subcard">
+                      <tbody>
+                        {% for row in colDevOrder %}
+                         <tr style="width: 100%">
+                             <td style="width: 5%">{{row[0]}}</td>
+                             <td style="width: 15%">{{row[1]}}</td>
+                             <td style="width: 75%; background: #B22222; color: #FFFFE0;">{{row[2]}}</td>
+                         </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
             </div>
             <div class="card">
-              <h2>The House Speciality</h2>
-              <h5>Traditional South Italian Food</h5>
-              <div class="cheffImg"><img src="/static/img/speciality.jpg" alt="Restaurants Bar" style="width:100%;height:600px; padding: 5px"></div>
-              <p>A Mediterranean Simplicity...</p>
-              <p>Swordfish alla Calabrese, it is one of the most traditional way in Italy to prepare swordfish. Simple yet delicious, it can make you feel the Mediterranean Sea taste in your mouth.</p>
-              <p>Salmoriglio is a vibrant Italian sauce of olive oil, lemon, garlic, parsley, and oregano. Drizzled over grilled fish it really enhances the flavor of the seafood and is delicious. Freshness is key for this vibrant sauce, so we make it as close to serving time as possible.</p>
+              <h2>Today's Sit In Orders</h2>
+                <div style="width: 100%">
+                  <table class="subcard" id="subcard1">
+                      <tbody>
+                        {% for row in guestsOrder %}
+                         <tr>
+                             <td style="width: 5%;">{{row[0]}}</td>
+                             <td style="width: 15%">{{row[1]}}</td>
+                             <td style="width: 75%; background: #B22222; color: #FFFFE0;">{{row[2]}}</td>
+                         </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="card">
+              <h2>Today's Bills</h2>
+                <div style="width: 100%">
+                  <table class="subcard" id="subcard1">
+                      <tbody>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Order Type</th>
+                          <th>Items</th>
+                          <th>Order Status</th>
+                          <th>Total Amount</th>
+                        </tr>
+                        {% for row in kitchenOrders %}
+                         <tr>
+                             <td style="width: 5%;">{{row[0]}}</td>
+                             <td style="width: 15%">{{row[1]}}</td>
+                             <td style="width: 15%">{{row[2]}}</td>
+                             <td style="width: 15%">{{row[3]}}</td>
+                             <td style="width: 25%; background: #B22222; color: #FFFFE0;">€{{row[4]}}</td>
+                         </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
             </div>
           </div>
           <div class="rightcolumn">
             <div class="card">
               <h2>Hello {{ fname }}</h2>
-              <div class="chisiamoImg"><img src="/static/img/none.jpg" alt="This is some info, this month sales" style="width:100%;height:200px;"></div>
-              <p>blah blah</p>
+                <p>Today's orders Overview</p>
+              <div class="chisiamoImg">
+                  <h3>Total number of deliveries: {{ delivCount }}</h3>
+                  <h3>Total number of guests: {{ guestsCount }}</h3>
+                  <h3>Today's Total Sales: €{{ floorTotalSales }}</h3>
+              </div>
             </div>
             <div class="card">
-              <h3>Restaurant Real Time</h3>
-              <div class="orderHome">
-                  <div class="fakeimg"><a href="#">Kitchen</a></div><br>
-                  <div class="fakeimg"><a href="#">Floor</a></div><br>
-              </div>
+                <div class="cleanslate w24tz-current-time w24tz-middle" style="display: inline-block !important; visibility: hidden !important; min-width:300px !important; min-height:145px !important;"><p><a href="//24timezones.com/Dublin/time" style="text-decoration: none" class="clock24" id="tz24-1661612438-c178-eyJob3VydHlwZSI6MTIsInNob3dkYXRlIjoiMSIsInNob3dzZWNvbmRzIjoiMCIsImNvbnRhaW5lcl9pZCI6ImNsb2NrX2Jsb2NrX2NiNjMwYTMxOTYzZGVjOSIsInR5cGUiOiJkYiIsImxhbmciOiJlbiJ9" title="World Clock :: Dublin" target="_blank" rel="nofollow">Current time in Dublin</a></p><div id="clock_block_cb630a31963dec9"></div></div>
             </div>
-            <div class="sm-card">
-              <h3>Check Restaurant's Social Medias</h3><br>
-              <div class="sm-icons">
-                  <a href="https://instagram.com" target="_window" class="fa fa-instagram"></a>
-                  <a href="https://twitter.com" target="_window" class="fa fa-twitter"></a>
-                  <a href="https://www.facebook.com" target="_window"  class="fa fa-facebook"></a>
-                  <a href="https://youtube.com" target="_window" class="fa fa-youtube"></a>
-              </div><br>
-              <h2>Check the Latest Reviews</h2><br>
-              <button onclick="reviewForm" id="reviewForm">Review</button><br>
 
-              <div style="display:none" id="formDv">
-                  <form action="#" method="post" id="formCont"><br/>
-                      <input placeholder="Name" type="text" name="name" id="name" required><br/>
-                      <br/>
-                      <input placeholder="Email" type="email" name="email" id="email" required><br/>
-                      <br/>
-                      <ul class="rating">
-                          <li class="rating-item active" data-rate="1"></li>
-                          <li class="rating-item" data-rate="2"></li>
-                          <li class="rating-item" data-rate="3"></li>
-                          <li class="rating-item" data-rate="4"></li>
-                          <li class="rating-item" data-rate="5"></li>
-                      </ul>
-                      <br/>
-                      <textarea placeholder="Write your review" name="review" id="review" maxlength="500"></textarea><br/><br/>
-                      <input type="submit" value="Confirm" id="submRev">
-                  </form>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -97,6 +109,7 @@
 
 
         <script type="text/javascript" src="/static/js/main.js"></script>
+        <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
 
     </body>
 </html>

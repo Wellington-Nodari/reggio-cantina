@@ -382,15 +382,41 @@ def floor():
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
         role = cur.fetchall()
-        print('flore')
-
         cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
         name = cur.fetchall()
         fname = name[0][0]
 
+        cur.execute('SELECT CURRENT_DATE;')
+        d = cur.fetchone()
+        date = d[0]
+        cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
+        todaySalesCountAmount = cur.fetchall()
+        print(todaySalesCountAmount[0][1])
+        floorTotalSales = todaySalesCountAmount[0][1]
+
+        cur.execute("SELECT order_id, order_type, order_details, order_status, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
+        kitchenOrders = cur.fetchall()
+        print(kitchenOrders)
+
+        guestsOrder = []
+        colDevOrder = []
+        for i in kitchenOrders:
+            if i[3] == 'Preparing':
+                print(i[3])
+                if 'Sit In' in i[1]:
+                    guestsOrder.append(i)
+                else:
+                    colDevOrder.append(i)
+            else:
+                guestsOrder.pop(i)
+                colDevOrder.pop(i)
+
+        delivCount = len(colDevOrder)
+        guestsCount = len(guestsOrder)
+
         if role[0][0] == 3 or role[0][0] == 2:
             cur.close()
-            return render_template("/floor.html", fname=fname)
+            return render_template("/floor.html", fname=fname, floorTotalSales=floorTotalSales, delivCount=delivCount, guestsCount=guestsCount, guestsOrder=guestsOrder, colDevOrder=colDevOrder, kitchenOrders=kitchenOrders)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
@@ -418,7 +444,6 @@ def kitchen():
 
             cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
             name = cur.fetchall()
-            #print(name)
             fname = name[0][0]
 
             cur.execute('SELECT CURRENT_DATE;')
