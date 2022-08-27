@@ -335,12 +335,10 @@ def admin():
         cur.execute('SELECT CURRENT_DATE;')
         d = cur.fetchone()
         date = d[0]
-        print(date)
         cur.execute("SELECT order_type, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
         todaySalesReport = cur.fetchall()
         cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
-        y = cur.fetchall()
-        todaySalesCountAmount = y
+        todaySalesCountAmount = cur.fetchall()
 
         # today's order's numbers by type
         cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Delivery';".format(date))
@@ -352,16 +350,12 @@ def admin():
         todayCollections = cur.fetchone()
         collectionsCount = todayCollections[0]
         collectionsAmount = todayCollections[1]
+
         cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Sit In';".format(date))
         todayGuests = cur.fetchone()
         guestCount = todayGuests[0]
         guestAmount = todayGuests[1]
 
-        pChart = np.array([deliveryAmount,collectionsAmount, guestAmount])
-        pChartLabels = ['Delivery', 'Collection', 'Guests']
-
-        plt.pie(pChart, labels = pChartLabels)
-        plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
 
         if role[0][0] == 2:
             cur.close()
@@ -371,7 +365,12 @@ def admin():
             return render_template("/home.html", error=error)
 
 
-
+# pChart2 = np.array([deliveryCount,collectionsCount, guestCount])
+# pChartLabels2 = ['Delivery', 'Collection', 'Guests']
+#
+# plt.pie(pChart2, labels = pChartLabels2)
+# plt.show()
+# plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
 
 
 @app.route('/floor')
