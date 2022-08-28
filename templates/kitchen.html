@@ -27,44 +27,30 @@
         <div class="row">
           <div class="leftcolumn">
             <div class="card">
-              <h2>Today's Deliveries / Collections Orders</h2>
+              <h2>Today's Orders</h2>
                 <div style="width: 100%">
+                <form action="#" method="POST">
                   <table class="subcard" id="subcard">
                       <tbody>
-                        {% for row in colDevOrder %}
+                        {% for row in kitchenOrders %}
                          <tr style="width: 100%">
-                             <td style="width: 5%">{{row[0]}}</td>
+                             <td style="width: 5%"><button type="submit" name="kitcButton" value="{{row[0]}}" onclick="removeRow(this); getValue(this)">{{row[0]}}</button></td>
                              <td style="width: 15%">{{row[1]}}</td>
                              <td style="width: 75%; background: #B22222; color: #FFFFE0;">{{row[2]}}</td>
-                             <td style="width: 5%"><button type="submit" formmethod="POST" name="kitcButton" class="ktcUpdtOrder" value="{{row[0]}}" onclick="removeRow()">done</button></td>
                          </tr>
-                         {% endfor %}
+                        <input type="hidden" id="myInput" name="testID" value="">
+                        {% endfor %}
                       </tbody>
                   </table>
-                </div>
-            </div>
-            <div class="card">
-              <h2>Today's Sit In Orders</h2>
-                <div style="width: 100%">
-                  <table class="subcard" id="subcard1">
-                      <tbody>
-                        {% for row in guestsOrder %}
-                         <tr>
-                             <td style="width: 5%;">{{row[0]}}</td>
-                             <td style="width: 15%">{{row[1]}}</td>
-                             <td style="width: 75%; background: #B22222; color: #FFFFE0;">{{row[2]}}</td>
-                             <td style="width: 5%"><button type="submit" name="kitcButton" formmethod="POST" class="ktcUpdtOrder" value="{{row[0]}}" onclick="removeRow1()">done</button></td>
-                         </tr>
-                         {% endfor %}
-                      </tbody>
-                  </table>
+                  <button type="submit">Confirm</button>
+                </form>
                 </div>
             </div>
           </div>
           <div class="rightcolumn">
             <div class="card">
               <h2>Hello {{ fname }}</h2>
-                <p>Today's orders Overview</p>
+                <p>Orders Open Overview</p>
               <div class="chisiamoImg">
                   <h3>Total number of deliveries: {{ delivCount }}</h3>
                   <h3>Total number of guests: {{ guestsCount }}</h3>
@@ -85,13 +71,19 @@
 
 
         <script>
-            var valor = document.getElementByClassName("ktcUpdtOrder").value
-            function removeRow() {
-              document.getElementById("subcard").deleteRow(valor);
+            function removeRow(r) {
+              var i = r.parentNode.parentNode.rowIndex;
+              document.getElementById("subcard").deleteRow(i);
             }
-            function removeRow1() {
-              document.getElementById("subcard1").deleteRow(valor);
+            function removeRow1(r) {
+              var i = r.parentNode.parentNode.rowIndex;
+              document.getElementById("subcard1").deleteRow(i);
             }
+
+            function getValue(o) {
+              var x = o.innerHTML;document.getElementById('myInput').value = x;
+            }
+
         </script>
         <script type="text/javascript" src="//w.24timezones.com/l.js" async></script>
 

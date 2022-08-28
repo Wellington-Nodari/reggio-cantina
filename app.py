@@ -230,7 +230,7 @@ def login():
         pwd = str(request.form["pwd"])
         cur.execute("SELECT * FROM login WHERE email='{}' AND pwd='{}';".format(email, pwd))
         row = cur.fetchall()
-        print(row)
+        #print(row)
 
         if row[0][1] == email and row[0][2] == pwd:
             session['logged_in'] = True
@@ -425,56 +425,45 @@ def floor():
 @login_required
 def kitchen():
     email = str(session['email'])
-    print(email)
     if session is None:
         print('session is none')
     else:
-        if request.method == "POST":
-            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            id = request.values['kitcButton']
-            print('ping')
-            print(id)
-            cur.execute("UPDATE customerorders SET order_status = 'Ready' WHERE order_id = '{}';".format(id))
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+        role = cur.fetchall()
 
-        else:
-            cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
-            role = cur.fetchall()
-            print(role)
+        cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
+        name = cur.fetchall()
+        fname = name[0][0]
 
-            cur.execute("SELECT fname FROM staff WHERE email='{}'".format(email))
-            name = cur.fetchall()
-            fname = name[0][0]
-
+        if role[0][0] == 4 or role[0][0] == 2:
             cur.execute('SELECT CURRENT_DATE;')
             d = cur.fetchone()
             date = d[0]
-            cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}';".format(date))
+            cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}' AND order_status = 'Preparing';".format(date))
             kitchenOrders = cur.fetchall()
 
-            guestsOrder = []
-            colDevOrder = []
-            for i in kitchenOrders:
-                if i[3] == 'Preparing':
-                    print(i[3])
-                    if 'Sit In' in i[1]:
-                        guestsOrder.append(i)
-                    else:
-                        colDevOrder.append(i)
-                else:
-                    guestsOrder.pop(i)
-                    colDevOrder.pop(i)
+            if request.method == "POST":
+                cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+                id = request.form['testID']
 
+                cur.execute("UPDATE customerorders SET order_status = 'Ready' WHERE order_id = '{}';".format(id))
+                conn.commit()
 
-            delivCount = len(colDevOrder)
-            guestsCount = len(guestsOrder)
-
-            if role[0][0] == 4 or role[0][0] == 2:
-                cur.close()
-                return render_template("/kitchen.html", fname=fname, guestsOrder=guestsOrder, colDevOrder=colDevOrder, delivCount=delivCount, guestsCount=guestsCount)
+                cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}' AND order_status = 'Preparing';".format(date))
+                kitchenOrders = cur.fetchall()
             else:
-                error = 'You do not have permission for accessing this page. Access denied!'
-                return render_template("/home.html", error=error)
+                pass
+
+            cur.execute("SELECT COUNT(*) FROM customerorders WHERE order_date = '{}' AND order_type in ('Delivery', 'Collection') AND order_status = 'Preparing';".format(date))
+            delivCount = cur.fetchone()
+            cur.execute("SELECT COUNT(*) FROM customerorders WHERE order_date = '{}' AND order_type = 'Sit In' AND order_status = 'Preparing';".format(date))
+            guestsCount = cur.fetchone()
+
+            return render_template("/kitchen.html", fname=fname, kitchenOrders=kitchenOrders, guestsCount=guestsCount[0], delivCount=delivCount[0])
+        else:
+            error = 'You do not have permission for accessing this page. Access denied!'
+            return render_template("/home.html", error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)

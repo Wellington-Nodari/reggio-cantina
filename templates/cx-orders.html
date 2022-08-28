@@ -82,7 +82,6 @@
                         <h2>Hello {{ fname }}</h2>
                         <div class="orderForm">
                             <form action="#" method="post" id="cxOrder"><br/>
-
                                 <label for="oType" style="color:silver">Delivery/ Collection</label><br><br>
                                 <input id="oType" list="orderTypes" name="oType" value="" required><br/>
                                 <datalist id="orderTypes">
@@ -91,7 +90,6 @@
                                     <option value="Sit In">
                                 </datalist>
                                 <br/>
-
                                 <datalist id="menu">
                                     {% for row in items_list %}
                                     <option value="{{row[0]}}">{{row[0]}}</option>
@@ -112,8 +110,6 @@
                                             <div class="row m-0">
                                                 <button class="btn btn-warning" onclick="addRow()">Add Item</button>
                                                 <button type="submit">Add to Basket</button>
-                                                <tbody>
-                                                </tbody>
                                             </div>
                                         </div>
                                     </div>

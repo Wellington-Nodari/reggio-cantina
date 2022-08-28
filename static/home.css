@@ -628,7 +628,7 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
-  border: 1px solid #8B4513;
+  border: 2px solid #20B2AA;
 }
 
 tr:nth-child(even) {
