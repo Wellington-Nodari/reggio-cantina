@@ -451,7 +451,6 @@ def kitchen():
             date = d[0]
             cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}';".format(date))
             kitchenOrders = cur.fetchall()
-            print(kitchenOrders[1][1])
 
             guestsOrder = []
             colDevOrder = []
