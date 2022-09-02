@@ -27,11 +27,11 @@
         <div class="row">
           <div class="leftcolumn">
             <div class="card">
-              <h2>Today's Deliveries / Collections Orders</h2>
+              <h2>Today's Preparing Orders</h2>
                 <div style="width: 100%">
                   <table class="subcard" id="subcard">
                       <tbody>
-                        {% for row in colDevOrder %}
+                        {% for row in kitchenOrders %}
                          <tr style="width: 100%">
                              <td style="width: 5%">{{row[0]}}</td>
                              <td style="width: 15%">{{row[1]}}</td>
@@ -43,11 +43,11 @@
                 </div>
             </div>
             <div class="card">
-              <h2>Today's Sit In Orders</h2>
+              <h2>Today's Ready Orders</h2>
                 <div style="width: 100%">
                   <table class="subcard" id="subcard1">
                       <tbody>
-                        {% for row in guestsOrder %}
+                        {% for row in readyOrders %}
                          <tr>
                              <td style="width: 5%;">{{row[0]}}</td>
                              <td style="width: 15%">{{row[1]}}</td>
@@ -70,7 +70,7 @@
                           <th>Order Status</th>
                           <th>Total Amount</th>
                         </tr>
-                        {% for row in kitchenOrders %}
+                        {% for row in todaysOrders %}
                          <tr>
                              <td style="width: 10%;">{{row[0]}}</td>
                              <td style="width: 15%">{{row[1]}}</td>
@@ -89,7 +89,7 @@
               <h2>Hello {{ fname }}</h2>
                 <p>Today's orders Overview</p>
               <div class="chisiamoImg">
-                  <h3>Total number of deliveries: {{ delivCount }}</h3>
+                  <h3>Total number of deliveries/collection: {{ delivCount }}</h3>
                   <h3>Total number of guests: {{ guestsCount }}</h3>
                   <h3>Today's Total Sales: €{{ floorTotalSales }}</h3>
               </div>

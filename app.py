@@ -1,10 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 from functools import wraps
+import os
 import psycopg2
 import psycopg2.extras
 import json
-# import matplotlib.pyplot as plt
-# import numpy as np
+import matplotlib.pyplot as plt
+import numpy as np
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
@@ -355,21 +356,35 @@ def admin():
         guestCount = todayGuests[0]
         guestAmount = todayGuests[1]
 
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        r = '''SELECT rv_name, review, rv_rating FROM review ORDER BY rv_rating DESC;'''
+        cur.execute(r)
+        review_list = cur.fetchall()
+
+        try:
+            if os.path.isfile('pChart'):
+                os.remove('pChart')
+            pChart = np.array([deliveryCount, collectionsCount, guestCount])
+            pChartLabels = 'Delivery', 'Collection', 'Guests'
+            plt.pie(pChart, labels=pChartLabels)
+            plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
+
+            if os.path.isfile('pChartA'):
+                os.remove('pChartA')
+            pChartA = np.array([deliveryAmount, collectionsAmount, guestAmount])
+            pChart2Labels = 'Deliveries Amount', 'Collections Amount', 'Guests Amount'
+            plt.pie(pChartA, labels=pChart2Labels)
+            plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChartA.png")
+        except:
+            pass
+
 
         if role[0][0] == 2:
             cur.close()
-            return render_template("/adm_page.html", fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount, todaySalesReport=todaySalesReport, todaySalesCountAmount=todaySalesCountAmount, deliveryCount=deliveryCount, deliveryAmount=deliveryAmount, collectionsCount=collectionsCount, collectionsAmount=collectionsAmount, guestCount=guestCount, guestAmount=guestAmount)
+            return render_template("/adm_page.html", review_list=review_list, fname=fname, monthSalesReport=monthSalesReport, totalSalesAmount=totalSalesAmount, todaySalesReport=todaySalesReport, todaySalesCountAmount=todaySalesCountAmount, deliveryCount=deliveryCount, deliveryAmount=deliveryAmount, collectionsCount=collectionsCount, collectionsAmount=collectionsAmount, guestCount=guestCount, guestAmount=guestAmount)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
-
-
-# pChart2 = np.array([deliveryCount,collectionsCount, guestCount])
-# pChartLabels2 = ['Delivery', 'Collection', 'Guests']
-#
-# plt.pie(pChart2, labels = pChartLabels2)
-# plt.show()
-# plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
 
 
 @app.route('/floor')
@@ -391,32 +406,32 @@ def floor():
         date = d[0]
         cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
         todaySalesCountAmount = cur.fetchall()
-        print(todaySalesCountAmount[0][1])
         floorTotalSales = todaySalesCountAmount[0][1]
 
         cur.execute("SELECT order_id, order_type, order_details, order_status, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
+        todaysOrders = cur.fetchall()
+
+        cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}' AND order_status = 'Preparing';".format(date))
         kitchenOrders = cur.fetchall()
-        print(kitchenOrders)
+
+        cur.execute("SELECT order_id, order_type, order_details, order_status FROM customerorders WHERE order_date = '{}' AND order_status = 'Ready';".format(date))
+        readyOrders = cur.fetchall()
 
         guestsOrder = []
         colDevOrder = []
-        for i in kitchenOrders:
-            if i[3] == 'Preparing':
-                print(i[3])
+        for i in todaysOrders:
+            if i[3] is not None:
                 if 'Sit In' in i[1]:
                     guestsOrder.append(i)
                 else:
                     colDevOrder.append(i)
-            else:
-                guestsOrder.pop(i)
-                colDevOrder.pop(i)
 
         delivCount = len(colDevOrder)
         guestsCount = len(guestsOrder)
 
         if role[0][0] == 3 or role[0][0] == 2:
             cur.close()
-            return render_template("/floor.html", fname=fname, floorTotalSales=floorTotalSales, delivCount=delivCount, guestsCount=guestsCount, guestsOrder=guestsOrder, colDevOrder=colDevOrder, kitchenOrders=kitchenOrders)
+            return render_template("/floor.html", fname=fname, todaysOrders=todaysOrders, floorTotalSales=floorTotalSales, delivCount=delivCount, guestsCount=guestsCount, guestsOrder=guestsOrder, colDevOrder=colDevOrder, kitchenOrders=kitchenOrders, readyOrders=readyOrders)
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
@@ -464,6 +479,39 @@ def kitchen():
         else:
             error = 'You do not have permission for accessing this page. Access denied!'
             return render_template("/home.html", error=error)
+
+@app.route('/staff', methods = ['GET', 'POST'])
+@login_required
+def staff():
+    email = str(session['email'])
+    if session is None:
+        print('session is none')
+
+    else:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("SELECT role_id FROM staff WHERE email='{}'".format(email))
+        role = cur.fetchall()
+
+        if role[0][0] == 2:
+            cur.execute("SELECT fname, lname, email, phone FROM staff;")
+            staffList = cur.fetchall()
+
+            return render_template("/staff.html", staffList=staffList)
+
+# @app.route('/addstaff/<test>')
+# @app.route('/addstaff', methods=['GET', 'POST'])
+# @login_required
+# def addstaff():
+#     #email = str(session['email'])
+#     if session is None:
+#         print('session is none')
+#
+#     else:
+#         test = 'menu'
+#         if test == 'home':
+#             return render_template("/home.html")
+#         elif test == 'menu':
+#             return redirect(url_for("menu"))
 
 if __name__ == '__main__':
     app.run(debug=True)
