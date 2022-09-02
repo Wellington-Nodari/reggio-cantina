@@ -361,22 +361,22 @@ def admin():
         cur.execute(r)
         review_list = cur.fetchall()
 
-        try:
-            if os.path.isfile('pChart'):
-                os.remove('pChart')
-            pChart = np.array([deliveryCount, collectionsCount, guestCount])
-            pChartLabels = 'Delivery', 'Collection', 'Guests'
-            plt.pie(pChart, labels=pChartLabels)
-            plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
-
-            if os.path.isfile('pChartA'):
-                os.remove('pChartA')
-            pChartA = np.array([deliveryAmount, collectionsAmount, guestAmount])
-            pChart2Labels = 'Deliveries Amount', 'Collections Amount', 'Guests Amount'
-            plt.pie(pChartA, labels=pChart2Labels)
-            plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChartA.png")
-        except:
-            pass
+        # try:
+        #     if os.path.isfile('pChart'):
+        #         os.remove('pChart')
+        #     pChart = np.array([deliveryCount, collectionsCount, guestCount])
+        #     pChartLabels = 'Delivery', 'Collection', 'Guests'
+        #     plt.pie(pChart, labels=pChartLabels)
+        #     plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChart.png")
+        #
+        #     if os.path.isfile('pChartA'):
+        #         os.remove('pChartA')
+        #     pChartA = np.array([deliveryAmount, collectionsAmount, guestAmount])
+        #     pChart2Labels = 'Deliveries Amount', 'Collections Amount', 'Guests Amount'
+        #     plt.pie(pChartA, labels=pChart2Labels)
+        #     plt.savefig("C:/Users/welli/OneDrive/Documents/GitHub/reggio-cantina/static/img/pChartA.png")
+        # except:
+        #     pass
 
 
         if role[0][0] == 2:
