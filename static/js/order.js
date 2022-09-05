@@ -44,7 +44,6 @@ btn.onclick = function() {
 span.onclick = function(e) {
   modal.style.display = "none";
   e.preventDefault();
-//  setTimeout("location.reload(true);",timeoutPeriod);
   return false;
 }
 

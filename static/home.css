@@ -41,6 +41,7 @@ input, textarea, button{
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  border: 1px solid #171616;
   border-radius: 10px;
 }
 
@@ -354,6 +355,9 @@ span.rating {
   background: #B22222;
   margin-top: 20px;
   border-radius: 10px;
+  position: -webkit-sticky;
+  bottom: 0;
+  border: 1px solid #171616;
 }
 
 .footer a {

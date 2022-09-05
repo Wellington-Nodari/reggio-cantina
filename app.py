@@ -1,16 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 from functools import wraps
-import os
 import psycopg2
 import psycopg2.extras
 import json
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 app = Flask(__name__)
 app.secret_key = "myfinalproject-DBSsoftwaredevelopment"
 items_list={}
-conn = psycopg2.connect(dbname = "decidsulj18q74", user = "fphmyvegucmiih", password = "08bdb827e02af0eae42038539b24ecbb0bede1a077e2b210c57c326d77b5aa61", host = "ec2-3-248-121-12.eu-west-1.compute.amazonaws.com")
+conn = psycopg2.connect(dbname="decidsulj18q74", user="fphmyvegucmiih", password="08bdb827e02af0eae42038539b24ecbb0bede1a077e2b210c57c326d77b5aa61", host="ec2-3-248-121-12.eu-west-1.compute.amazonaws.com")
 
 def login_required(f): #taken from https://www.youtube.com/watch?v=_pzMDIi5BuI
     @wraps(f)
@@ -322,36 +320,36 @@ def admin():
         fname = name[0]
 
         # month sales list
-        cur.execute('SELECT EXTRACT(MONTH FROM now());')
-        m = cur.fetchone()
-        month = m[0]
-        cur.execute("SELECT order_type, order_date, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
+        cur.execute('SELECT CURRENT_DATE;')
+        d = cur.fetchone()
+        date = d[0]
+        cur.execute("SELECT order_type, order_details, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
         monthSalesReport = cur.fetchall()
-        cur.execute("SELECT SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
+        cur.execute("SELECT SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
         x = cur.fetchone()
         totalSalesAmount = x[0]
 
         # today's sales list
-        cur.execute('SELECT CURRENT_DATE;')
-        d = cur.fetchone()
-        date = d[0]
-        cur.execute("SELECT order_type, order_amount FROM customerorders WHERE order_date = '{}';".format(date))
+        cur.execute('SELECT EXTRACT(MONTH FROM now());')
+        m = cur.fetchone()
+        month = m[0]
+        cur.execute("SELECT order_type, order_amount FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
         todaySalesReport = cur.fetchall()
-        cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE order_date = '{}';".format(date))
+        cur.execute("SELECT COUNT(order_amount), SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}';".format(month))
         todaySalesCountAmount = cur.fetchall()
 
         # today's order's numbers by type
-        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Delivery';".format(date))
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}' AND order_type = 'Delivery';".format(month))
         todayDeliveries = cur.fetchone()
         deliveryCount = todayDeliveries[0]
         deliveryAmount = todayDeliveries[1]
 
-        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Collection';".format(date))
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}' AND order_type = 'Collection';".format(month))
         todayCollections = cur.fetchone()
         collectionsCount = todayCollections[0]
         collectionsAmount = todayCollections[1]
 
-        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE order_date = '{}' AND order_type = 'Sit In';".format(date))
+        cur.execute("SELECT COUNT(order_type), SUM(order_amount) FROM customerorders WHERE EXTRACT(MONTH FROM order_date) = '{}' AND order_type = 'Sit In';".format(month))
         todayGuests = cur.fetchone()
         guestCount = todayGuests[0]
         guestAmount = todayGuests[1]

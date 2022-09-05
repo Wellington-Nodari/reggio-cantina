@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="eng" xmlns="http://www.w3.org/1999/html">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=width=device-width, initial-scale=1">
         <title>Admin - Reggio Cantina</title>
         <link rel="shortcut icon" href="/static/img/logo.jpg.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,7 +19,6 @@
         </div><br>
 
         <div class="topnav">
-          <a href="restaurant">Restaurant</a>
           <a href="adm_menu">Menus</a>
           <a href="staff">Staffs</a>
           <a href="logout" style="float:right">Log out</a>
@@ -27,9 +28,14 @@
           <div class="leftcolumn">
             <div class="card">
               <h2>Hello {{ fname }}</h2>
-                <h3>Restaurant's Month Sales Report</h3>
+                <h3>Restaurant's Today Sales Report</h3>
                 <table class="list_reports">
                     <tbody>
+                    <tr>
+                         <td style="text-align: center; background: #B22222; color: #FFFFE0;">Order Type</td>
+                         <td style="text-align: center; background: #B22222; color: #FFFFE0;">Order Details</td>
+                         <td style="text-align: center; background: #B22222; color: #FFFFE0;">Order Amount</td>
+                     </tr>
                     {% for row in monthSalesReport %}
                      <tr>
                          <td style="text-align: center;">{{row[0]}}</td>
@@ -39,11 +45,11 @@
                      {% endfor %}
                      </tbody>
                 </table>
-                <p>Month-to-date $ales</p>
+                <p>Today $ales</p>
                 <h1 id="totalSales" style="border-radius: 4px;">€{{ totalSalesAmount }}</h1>
             </div>
             <div class="card">
-              <h2>Today's Overview</h2>
+              <h2>Month Overview</h2>
               <div class="subcardDiv">
                   <table class="subcard">
                   <tbody>
@@ -124,8 +130,7 @@
         </div>
 
         <div class="footer">
-              <a href="#">The Team</a> |
-              <a href="#">Careers</a> |
+              <a href="#">The Team & Careers</a> |
               <a href="#">Contact Us</a>
         </div>
 
@@ -134,8 +139,3 @@
 
     </body>
 </html>
-
-<!--                    <div class="subcard" id="charts">-->
-<!--                        <img src="/static/img/pChart.png" alt="Pie Chart">-->
-<!--                        <img src="/static/img/pChart.png" alt="Pie Chart">-->
-<!--                    </div>-->

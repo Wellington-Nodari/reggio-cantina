@@ -34,18 +34,18 @@
             <div style = "display:block" id="signDv">
                 <form action="{{url_for('signup')}}" method="POST" id="signupForm">
                   <br/>
-                  <input placeholder="First name" type="text" name="fname"><br/>
+                  <input placeholder="First name" type="text" name="fname" required><br/>
                   <br/>
-                  <input placeholder="Last name" type="text" name="lname"><br/>
+                  <input placeholder="Last name" type="text" name="lname" required><br/>
                   <br/>
-                  <input placeholder="Email" type="email" name="email"><br/>
+                  <input placeholder="Email" type="email" name="email" required><br/>
                   <br/>
-                  <input placeholder="Mobile" type="text" name="phone"><br/>
+                  <input placeholder="Mobile" type="text" name="phone" required><br/>
                   <br/>
-                  <input placeholder="Address" type="text" name="address"><br/>
+                  <input placeholder="Address" type="text" name="address" required><br/>
                   <br/>
-                  <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
-                  <input placeholder="Confirm Password" name="pwdC" type="password" id="pwdC"><br/><br/>
+                  <input placeholder="Password" name="pwd" type="password" id="pwd" required><br/><br/>
+                  <input placeholder="Confirm Password" name="pwdC" type="password" id="pwdC" required><br/><br/>
 <!--                  <input type="submit" value="Confirm" id="erlbtn">-->
                   <button type="submit" value="Confirm" id="submtbtn" onclick="refreshPage()">Submit</button>
                 </form>

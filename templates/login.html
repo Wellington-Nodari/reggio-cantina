@@ -28,9 +28,9 @@
             <div id="logDv">
                 <form action="{{url_for('login')}}" target="_window" method="POST" id="loginForm">
                   <br/>
-                  <input placeholder="Email" type="text" name="email"><br/>
+                  <input placeholder="Email" type="text" name="email" required><br/>
                   <br/>
-                  <input placeholder="Password" name="pwd" type="password" id="pwd"><br/><br/>
+                  <input placeholder="Password" name="pwd" type="password" id="pwd" required><br/><br/>
                   <button type="submit" value="Confirm" id="submtbtn" onclick="refreshPage()">Submit</button>
                 </form>
             </div><br>
